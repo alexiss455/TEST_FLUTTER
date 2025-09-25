@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/components/_custom_button.dart';
-import 'package:food_app/main.dart';
+import 'package:food_app/pages/auth/_registration.dart';
+import 'package:food_app/pages/root_page.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -128,8 +129,10 @@ class LoginPage extends StatelessWidget {
                   Text("Don’t have account yet ? "),
                   GestureDetector(
                     onTap: () {
-                      // TODO: Navigate to Register Page
-                      print("Register tapped");
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (cotext) => Registration()));
                     },
                     child: Text(
                       "Register Here",

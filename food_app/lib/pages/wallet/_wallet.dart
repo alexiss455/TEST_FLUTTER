@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ScanPage extends StatelessWidget {
-  const ScanPage({super.key});
+class WalletPage extends StatelessWidget {
+  const WalletPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Center(child: Text("🔍 Scan Page"));
+    return Center(child: Text('💴 Wallet Page'));
   }
 }
