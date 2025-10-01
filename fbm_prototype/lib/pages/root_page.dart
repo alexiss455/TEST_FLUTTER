@@ -2,15 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:food_app/components/_custom_colors.dart';
-import 'package:food_app/components/_custom_button_nav.dart';
+import 'package:FBM/components/_custom_colors.dart';
+import 'package:FBM/components/_custom_button_nav.dart';
 
 // Pages
-import 'package:food_app/pages/home/_home.dart';
-import 'package:food_app/pages/profile/_profile.dart';
-import 'package:food_app/pages/scan/_scan.dart';
-import 'package:food_app/pages/transaction/_transaction.dart';
-import 'package:food_app/pages/wallet/_wallet.dart';
+import 'package:FBM/pages/home/_home.dart';
+import 'package:FBM/pages/profile/_profile.dart';
+import 'package:FBM/pages/scan/_scan.dart';
+import 'package:FBM/pages/transaction/_transaction.dart';
+import 'package:FBM/pages/wallet/_wallet.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});

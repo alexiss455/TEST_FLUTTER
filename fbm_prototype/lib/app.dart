@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/routes/route_list.dart';
-import 'package:food_app/routes/routes.dart';
+import 'package:FBM/components/_custom_colors.dart';
+import 'package:FBM/routes/route_list.dart';
+import 'package:FBM/routes/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,10 +11,30 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Food App",
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        fontFamily: 'Inter',
+        primaryColor: AppColors.primary,
+        scaffoldBackgroundColor: AppColors.white,
+        textTheme: const TextTheme(
+          bodyLarge:
+              TextStyle(color: AppColors.textPrimary, fontFamily: 'Inter'),
+          bodyMedium:
+              TextStyle(color: AppColors.textPrimary, fontFamily: 'Inter'),
+          bodySmall:
+              TextStyle(color: AppColors.textPrimary, fontFamily: 'Inter'),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: AppColors.white,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: AppColors.textSecondary,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.white,
+          foregroundColor: AppColors.textPrimary,
+        ),
       ),
       initialRoute: AppRoutes.login,
-      onGenerateRoute: RouteGenerator.generateRoute,
+      onGenerateRoute: (RouteSettings settings) =>
+          RouteGenerator.generateRoute(settings),
     );
   }
 }

@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "food_app",
+            "name": "FBM",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "food_app (profile mode)",
+            "name": "FBM (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "food_app (release mode)",
+            "name": "FBM (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

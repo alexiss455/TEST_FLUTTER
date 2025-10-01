@@ -1,6 +1,6 @@
+import 'package:FBM/components/_custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:food_app/components/_custom_colors.dart';
 
 class CustomBottomNav extends StatelessWidget {
   final int selectedIndex;
@@ -26,7 +26,7 @@ class CustomBottomNav extends StatelessWidget {
               width: 24,
               height: 24,
               colorFilter: ColorFilter.mode(
-                isSelected ? Colors.red : Colors.grey,
+                isSelected ? AppColors.primary : AppColors.grey,
                 BlendMode.srcIn,
               ),
             ),
@@ -34,7 +34,7 @@ class CustomBottomNav extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.red : Colors.grey,
+                color: isSelected ? AppColors.primary : AppColors.grey,
                 fontSize: 12,
               ),
               maxLines: 1,
@@ -50,7 +50,7 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Colors.white, //  background color
+      color: AppColors.white, //  background color
       surfaceTintColor: Colors.transparent,
       shape: const CircularNotchedRectangle(), // 👈 notch for FAB
       elevation: 3,

@@ -9,11 +9,11 @@ class AppColors {
   // Neutral / Background colors
   static const Color background = Color(0xFFF5F5F5); // Light grey
   static const Color white = Color(0xFFFFFFFF); // White
-  static const Color grey = Color(0xFFBDBDBD); // Grey
+  static const Color grey = Color(0xFFD6D6D6); // Grey
 
   // Text colors
-  static const Color textPrimary = Color(0xFF212121); // Dark
-  static const Color textSecondary = Color(0xFF757575); // Grey
+  static const Color textPrimary = Color(0xFF555B70); // Dark
+  static const Color textSecondary = Color(0xFFAAADB8); // Grey
   static const Color textLight = Color(0xFFFFFFFF); // White
 
   // Status colors
