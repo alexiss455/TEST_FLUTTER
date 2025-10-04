@@ -43,7 +43,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 10),
                 // Username field
                 CustomInput(
-                    icons: Padding(
+                    icon: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: SvgPicture.asset(
                           "assets/img/icon/icon-user-type1.svg"),
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 10),
                 // Password field
                 CustomInput(
-                  icons: Padding(
+                  icon: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child:
                         SvgPicture.asset("assets/img/icon/icon-password.svg"),

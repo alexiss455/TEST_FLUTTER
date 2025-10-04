@@ -17,7 +17,7 @@ class Registration extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
+      body: SingleChildScrollView(
         child: Container(
             padding: const EdgeInsets.all(20.0),
             child:
