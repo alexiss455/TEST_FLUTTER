@@ -42,16 +42,20 @@ class _IDUploaderState extends State<IDUploader> {
           child: Wrap(
             children: [
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text("Choose from Gallery"),
+                leading: SvgPicture.asset(
+                    width: 25,
+                    height: 25,
+                    "assets/img/icon/icon-upload-image.svg"),
+                title: CustomText(text: "Choose from Gallery"),
                 onTap: () {
                   _pickImage();
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text("Take a Photo"),
+                leading: SvgPicture.asset(
+                    width: 25, height: 25, "assets/img/icon/icon-camera.svg"),
+                title: CustomText(text: "Take a Photo"),
                 onTap: () async {
                   final XFile? pickedFile = await _picker.pickImage(
                     source: ImageSource.camera,

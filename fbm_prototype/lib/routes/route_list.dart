@@ -6,6 +6,7 @@ class AppRoutes {
   static const login = "/login";
   static const registration = "/registration";
   static const idConfirmation = "/id-confirmation";
+  static const selfieVerification = "/selfie-verification";
 
   static const transactions = "/transactions";
   static const scan = "/scan";

@@ -7,11 +7,19 @@ class CustomText extends StatelessWidget {
   final Color color;
   final FontWeight fontWeight;
   final double height;
-  final TextStyle? style; // 👈 accept an extra TextStyle override
+  final TextAlign textAlign;
+  final TextStyle? style;
+  final TextOverflow? overflow;
+  final bool softWrap;
+  final int? maxLines;
 
   const CustomText({
     Key? key,
     required this.text,
+    this.overflow,
+    this.softWrap = true,
+    this.maxLines,
+    this.textAlign = TextAlign.start,
     this.fontSize = 16,
     this.color = AppColors.textPrimary,
     this.fontWeight = FontWeight.normal,
@@ -30,7 +38,11 @@ class CustomText extends StatelessWidget {
 
     return Text(
       text,
-      style: baseStyle.merge(style), // 👈 merge user-defined style
+      textAlign: textAlign,
+      style: baseStyle.merge(style),
+      overflow: overflow,
+      softWrap: softWrap,
+      maxLines: maxLines,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:FBM/pages/auth/_id_confirmation.dart';
 import 'package:FBM/pages/auth/_registration.dart';
+import 'package:FBM/pages/auth/_selfie_verification.dart';
 import 'package:flutter/material.dart';
 import 'package:FBM/context/auth_provider.dart';
 import 'package:FBM/pages/auth/_login.dart';
@@ -26,6 +27,9 @@ class RouteGenerator {
 
         case AppRoutes.idConfirmation:
           return IDConfirmation();
+
+        case AppRoutes.selfieVerification:
+          return SelfieVerificationPage();
 
         /// PRIVATE ROUTES (require auth)
         case AppRoutes.home:

@@ -1,6 +1,6 @@
+import 'package:FBM/components/_custom_button.dart';
 import 'package:FBM/components/_custom_input.dart';
 import 'package:FBM/pages/auth/_id_uploader.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
@@ -57,7 +57,7 @@ class _IDConfirmationState extends State<IDConfirmation> {
                       contentPadding: EdgeInsets.only(left: 18.0),
                       title: CustomText(
                         text: idTypes[index],
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                       onTap: () {
                         setState(() {
@@ -73,6 +73,105 @@ class _IDConfirmationState extends State<IDConfirmation> {
           ),
         );
       },
+    );
+  }
+
+  void _verifySelfie(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // allows full-screen height if needed
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+      ),
+      builder: (_) {
+        return Padding(
+          padding: EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomText(
+                        text: 'Take a Selfie',
+                        fontSize: 20,
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      const SizedBox(height: 12),
+                      CustomText(
+                        textAlign: TextAlign.center,
+                        height: 1.25,
+                        text: 'We use your selfie to compare to your ID Photo',
+                        fontSize: 14,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 30),
+                  child: Image.asset('assets/img/bg/img-selfie.png'),
+                ),
+                _buildTip(
+                  icon: 'assets/img/icon/icon-check-green.svg',
+                  title: 'Good lighting and no glare',
+                  text:
+                      'Make sure you are in well lit area and both ears are uncovered',
+                ),
+                const SizedBox(height: 20),
+                _buildTip(
+                  icon: 'assets/img/icon/icon-check-green.svg',
+                  title: 'Look Straight',
+                  text:
+                      'Hold your phone at eye level and look straight to the camera',
+                ),
+                const SizedBox(height: 30),
+                CustomButton(
+                    text: 'Take Selfie',
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/selfie-verification');
+                    }),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTip(
+      {required String icon, required String title, required String text}) {
+    return SizedBox(
+      width: 350,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SvgPicture.asset(icon, width: 30, height: 30),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: title,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                CustomText(
+                  text: text,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  height: 1.2,
+                  softWrap: true,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -184,6 +283,14 @@ class _IDConfirmationState extends State<IDConfirmation> {
               ],
             ),
           ),
+        ),
+        bottomNavigationBar: Container(
+          padding: const EdgeInsets.all(20.0),
+          child: CustomButton(
+              text: 'Next',
+              onPressed: () => {
+                    _verifySelfie(context),
+                  }),
         ));
   }
 }

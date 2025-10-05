@@ -104,8 +104,7 @@ class Registration extends StatelessWidget {
                                 style: TextStyle(
                                     height: 1, color: AppColors.textPrimary),
                                 text:
-                                    'minimum 8 characters, at least one upper and lowercase,\n'
-                                    '\u00A0\u00A0and at least one symbol and number',
+                                    'minimum 8 characters, at least one upper and lowercase, and at least one symbol and number',
                               ),
                             ],
                           ),

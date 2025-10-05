@@ -19,8 +19,12 @@ class AppColors {
   static const Color textLight = Color(0xFFFFFFFF); // White
 
   // Status colors
-  static const Color success = Color(0xFF4CAF50);
+  static const Color success = Color(0xFF31A139);
   static const Color error = Color(0xFFF44336);
   static const Color warning = Color(0xFFFFC107);
   static const Color info = Color(0xFF2196F3);
+
+  // Shadow colors
+  static const Color black = Color(0xFF000000);
+  static const Color transparent = Color.fromARGB(0, 0, 0, 0);
 }
