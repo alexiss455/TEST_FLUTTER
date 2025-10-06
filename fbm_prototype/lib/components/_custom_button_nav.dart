@@ -1,4 +1,5 @@
 import 'package:FBM/components/_custom_colors.dart';
+import 'package:FBM/components/_custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,35 +15,39 @@ class CustomBottomNav extends StatelessWidget {
 
   Widget _buildNavItem(String asset, String label, int index) {
     final isSelected = selectedIndex == index;
-    return GestureDetector(
-      onTap: () => onItemTapped(index),
-      child: SizedBox(
-        width: 80,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              isSelected ? "${asset}-active.svg" : "$asset.svg",
-              width: 24,
-              height: 24,
-              colorFilter: ColorFilter.mode(
-                isSelected ? AppColors.primary : AppColors.grey,
-                BlendMode.srcIn,
+
+    return Material(
+      color: Colors.transparent, // so ripple shows over background
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12), // rounded ripple
+        onTap: () => onItemTapped(index),
+        child: Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 70,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    isSelected ? "$asset-active.svg" : "$asset.svg",
+                    color: isSelected ? AppColors.primary : AppColors.black,
+                  ),
+                  const SizedBox(height: 2),
+                  CustomText(
+                    text: label,
+                    style: TextStyle(
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.textPrimary,
+                      fontSize: 12,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected ? AppColors.primary : AppColors.grey,
-                fontSize: 12,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
-          ],
-        ),
+            )),
       ),
     );
   }
@@ -59,7 +64,7 @@ class CustomBottomNav extends StatelessWidget {
       child: SizedBox(
         height: 70,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildNavItem("assets/img/icon/icon-home", "Home", 0),
             _buildNavItem(

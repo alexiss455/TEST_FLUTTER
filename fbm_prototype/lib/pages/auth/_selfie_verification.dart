@@ -44,7 +44,6 @@ class _SelfieVerificationPageState extends State<SelfieVerificationPage>
         enableAudio: false,
       );
       _initializeControllerFuture = _controller!.initialize();
-      setState(() {});
       _initializeControllerFuture!.then((_) => _startFakeScan());
     } catch (e) {
       print("Camera error: $e");
@@ -52,7 +51,7 @@ class _SelfieVerificationPageState extends State<SelfieVerificationPage>
   }
 
   void _startFakeScan() {
-    _timer = Timer.periodic(Duration(milliseconds: 40), (t) {
+    _timer = Timer.periodic(const Duration(milliseconds: 40), (t) {
       setState(() {
         _progress += 0.01;
         if (_progress >= 1.0) {
@@ -72,6 +71,10 @@ class _SelfieVerificationPageState extends State<SelfieVerificationPage>
     setState(() {
       _success = true;
       _ocrProcessing = false;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, '/success-verification');
+      });
     });
     _checkController.forward();
   }

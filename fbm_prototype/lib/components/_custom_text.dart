@@ -20,7 +20,7 @@ class CustomText extends StatelessWidget {
     this.softWrap = true,
     this.maxLines,
     this.textAlign = TextAlign.start,
-    this.fontSize = 16,
+    this.fontSize = 14,
     this.color = AppColors.textPrimary,
     this.fontWeight = FontWeight.normal,
     this.height = 1.5,
