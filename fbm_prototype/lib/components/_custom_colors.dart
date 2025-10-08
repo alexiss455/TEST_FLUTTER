@@ -27,4 +27,7 @@ class AppColors {
   // Shadow colors
   static const Color black = Color(0xFF000000);
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
+
+  // RGB
+  static const Color warningLight = Color(0xFFFF883F);
 }

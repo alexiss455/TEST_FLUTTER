@@ -92,22 +92,28 @@ class Registration extends StatelessWidget {
                           type: TextInputType.visiblePassword,
                         ),
                         const SizedBox(height: 10),
-                        RichText(
-                          text: TextSpan(
-                            style: TextStyle(
-                                fontSize: 14, color: Colors.black, height: 1.5),
-                            children: [
-                              TextSpan(
-                                  text: '* ',
-                                  style: TextStyle(color: AppColors.primary)),
-                              TextSpan(
-                                style: TextStyle(
-                                    height: 1, color: AppColors.textPrimary),
-                                text:
-                                    'minimum 8 characters, at least one upper and lowercase, and at least one symbol and number',
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                                text: '* ',
+                                style: TextStyle(color: AppColors.primary)),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  CustomText(
+                                    fontSize: 12,
+                                    text:
+                                        'minimum 8 characters, at least one upper and lowercase, and at least one symbol and number',
+                                    style: TextStyle(
+                                        height: 1,
+                                        color: AppColors.textPrimary),
+                                    softWrap: true,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            )
+                          ],
                         )
                       ])),
               Container(
@@ -138,7 +144,7 @@ class Registration extends StatelessWidget {
         margin: const EdgeInsets.all(20.0),
         child: CustomButton(
           text: 'Next',
-          color: AppColors.primary,
+          backGroundcolor: AppColors.primary,
           onPressed: () => {Navigator.pushNamed(context, '/id-confirmation')},
         ),
       ),

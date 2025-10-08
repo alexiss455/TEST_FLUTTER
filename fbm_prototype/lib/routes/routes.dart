@@ -15,54 +15,86 @@ import 'package:provider/provider.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    return MaterialPageRoute(builder: (context) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final args = settings.arguments;
+    return PageRouteBuilder(
+      transitionDuration:
+          const Duration(milliseconds: 150), // 👈 speed (faster)
+      reverseTransitionDuration:
+          const Duration(milliseconds: 150), // 👈 back speeds
+      pageBuilder: (context, animation, secondaryAnimation) {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-      switch (settings.name) {
-        /// PUBLIC ROUTES
-        case AppRoutes.login:
-          return LoginPage();
+        switch (settings.name) {
+          /// PUBLIC ROUTES (slide)
+          case AppRoutes.login:
+            return LoginPage();
+          case AppRoutes.registration:
+            return Registration();
+          case AppRoutes.idConfirmation:
+            return IDConfirmation();
+          case AppRoutes.selfieVerification:
+            return SelfieVerificationPage();
+          case AppRoutes.selfieVerificationSuccess:
+            return SelfieVerificationSuccess();
 
-        case AppRoutes.registration:
-          return Registration();
+          /// PRIVATE ROUTES (fade if authenticated, else slide back to login)
+          case AppRoutes.home:
+            return authProvider.isAuthenticated
+                ? const RootPage()
+                : LoginPage();
 
-        case AppRoutes.idConfirmation:
-          return IDConfirmation();
+          case AppRoutes.transactions:
+            return authProvider.isAuthenticated
+                ? const TransactionsPage()
+                : LoginPage();
 
-        case AppRoutes.selfieVerification:
-          return SelfieVerificationPage();
+          case AppRoutes.scan:
+            return authProvider.isAuthenticated
+                ? const ScanPage()
+                : LoginPage();
 
-        case AppRoutes.selfieVerificationSuccess:
-          return SelfieVerificationSuccess();
+          case AppRoutes.wallet:
+            return authProvider.isAuthenticated
+                ? const WalletPage()
+                : LoginPage();
 
-        /// PRIVATE ROUTES (require auth)
-        case AppRoutes.home:
-          return authProvider.isAuthenticated ? const RootPage() : LoginPage();
+          case AppRoutes.profile:
+            return authProvider.isAuthenticated
+                ? const ProfilePage()
+                : LoginPage();
 
-        case AppRoutes.transactions:
-          return authProvider.isAuthenticated
-              ? const TransactionsPage()
-              : LoginPage();
+          /// FALLBACK
+          default:
+            return const Scaffold(
+              body: Center(child: Text("Page not found")),
+            );
+        }
+      },
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final isAuthRoute = [
+          AppRoutes.login,
+          AppRoutes.registration,
+          AppRoutes.idConfirmation,
+          AppRoutes.selfieVerification,
+          AppRoutes.selfieVerificationSuccess,
+        ].contains(settings.name);
 
-        case AppRoutes.scan:
-          return authProvider.isAuthenticated ? const ScanPage() : LoginPage();
-
-        case AppRoutes.wallet:
-          return authProvider.isAuthenticated
-              ? const WalletPage()
-              : LoginPage();
-
-        case AppRoutes.profile:
-          return authProvider.isAuthenticated
-              ? const ProfilePage()
-              : LoginPage();
-
-        /// FALLBACK
-        default:
-          return const Scaffold(
-            body: Center(child: Text("Page not found")),
+        if (isAuthRoute) {
+          // Slide animation for auth/public pages
+          return SlideTransition(
+            transformHitTests: true,
+            position:
+                Tween(begin: Offset(1, 0), end: Offset.zero).animate(animation),
+            child: child,
           );
-      }
-    });
+        } else {
+          // Fade animation for private pages
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        }
+      },
+    );
   }
 }

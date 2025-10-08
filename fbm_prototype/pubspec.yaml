@@ -64,6 +64,7 @@ flutter:
     - assets/img/icon/icon-home.svg
     - assets/img/icon/icon-home-active.svg
     - assets/img/icon/icon-notification.svg
+    - assets/img/icon/icon-notification-type1.svg
     - assets/img/icon/icon-profile.svg
     - assets/img/icon/icon-profile-active.svg
     - assets/img/icon/icon-wallet.svg
@@ -77,6 +78,15 @@ flutter:
     - assets/img/icon/icon-upload-image.svg
     - assets/img/icon/icon-check-green.svg
     - assets/img/icon/icon-camera.svg
+    - assets/img/icon/icon-my-account.svg
+    - assets/img/icon/icon-refer.svg
+    - assets/img/icon/icon-topup.svg
+    - assets/img/icon/icon-scan-type1.svg
+    - assets/img/icon/icon-wallet-type1.svg
+    - assets/img/icon/icon-transfer.svg
+    - assets/img/icon/icon-withdraw.svg
+    - assets/img/icon/icon-notice.svg
+    - assets/img/icon/icon-eye.svg
 
     # LOGO SVG
     - assets/img/logo/fbm_r_big.svg

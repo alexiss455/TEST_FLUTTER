@@ -48,19 +48,18 @@ class _RootPageState extends State<RootPage> {
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':
-              return MaterialPageRoute(builder: (_) => const HomePage());
+              return MaterialPageRoute(builder: (_) => HomePage());
             case '/transactions':
-              return MaterialPageRoute(
-                  builder: (_) => const TransactionsPage());
+              return MaterialPageRoute(builder: (_) => TransactionsPage());
             case '/scan':
-              return MaterialPageRoute(builder: (_) => const ScanPage());
+              return MaterialPageRoute(builder: (_) => ScanPage());
             case '/wallet':
-              return MaterialPageRoute(builder: (_) => const WalletPage());
+              return MaterialPageRoute(builder: (_) => WalletPage());
             case '/profile':
-              return MaterialPageRoute(builder: (_) => const ProfilePage());
+              return MaterialPageRoute(builder: (_) => ProfilePage());
             default:
               return MaterialPageRoute(
-                builder: (_) => const Center(child: Text("Not found")),
+                builder: (_) => Center(child: Text("Not found")),
               );
           }
         },

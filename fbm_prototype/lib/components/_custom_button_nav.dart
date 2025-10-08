@@ -19,7 +19,6 @@ class CustomBottomNav extends StatelessWidget {
     return Material(
       color: Colors.transparent, // so ripple shows over background
       child: InkWell(
-        borderRadius: BorderRadius.circular(12), // rounded ripple
         onTap: () => onItemTapped(index),
         child: Align(
             alignment: Alignment.center,
