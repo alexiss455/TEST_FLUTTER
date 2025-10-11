@@ -90,11 +90,14 @@ flutter:
 
     # LOGO SVG
     - assets/img/logo/fbm_r_big.svg
-    - assets/img/logo/fbm_r_big.png
+    - assets/img/logo/fbm_r_big.png 
 
     # BACKGROUND IMAGE
     - assets/img/bg/img-selfie.png
     - assets/img/bg/img-selfie-verified.png
+    - assets/img/bg/img-selfie-verified.svg
+    - assets/img/bg/img-promo1.png
+    - assets/img/bg/img-promo2.png
     
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

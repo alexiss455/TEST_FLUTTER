@@ -9,7 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  debugPaintSizeEnabled = false;
+  // debugPaintSizeEnabled = true;
   runApp(
     MultiProvider(
       providers: [

@@ -48,7 +48,7 @@ class _RootPageState extends State<RootPage> {
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':
-              return MaterialPageRoute(builder: (_) => HomePage());
+              return MaterialPageRoute(builder: (_) => const HomePage());
             case '/transactions':
               return MaterialPageRoute(builder: (_) => TransactionsPage());
             case '/scan':

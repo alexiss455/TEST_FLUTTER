@@ -88,9 +88,8 @@ class RouteGenerator {
             child: child,
           );
         } else {
-          // Fade animation for private pages
           return FadeTransition(
-            opacity: animation,
+            opacity: AlwaysStoppedAnimation(1.0),
             child: child,
           );
         }

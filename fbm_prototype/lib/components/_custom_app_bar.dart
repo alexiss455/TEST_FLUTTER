@@ -18,13 +18,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: true, // ✅ Uses default native back behavior
       title: CustomText(
         text: title,
         fontWeight: FontWeight.w600,
         fontSize: 18,
       ),
       centerTitle: true,
-      leading: leading,
+      leading: leading, // Optional override
       actions: actions,
       backgroundColor: backgroundColor,
       elevation: 0,

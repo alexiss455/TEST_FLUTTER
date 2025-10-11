@@ -8,45 +8,57 @@ class CustomBottomNav extends StatelessWidget {
   final Function(int) onItemTapped;
 
   const CustomBottomNav({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
   Widget _buildNavItem(String asset, String label, int index) {
     final isSelected = selectedIndex == index;
-
-    return Material(
-      color: Colors.transparent, // so ripple shows over background
-      child: InkWell(
-        onTap: () => onItemTapped(index),
-        child: Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: 70,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    isSelected ? "$asset-active.svg" : "$asset.svg",
-                    color: isSelected ? AppColors.primary : AppColors.black,
+    return Expanded(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned.fill(
+            // left: -12,
+            // right: -12,
+            child: Material(
+              color: Colors.transparent,
+              child: InkResponse(
+                containedInkWell: false,
+                radius: 56,
+                splashColor: AppColors.primary.withOpacity(0.15),
+                highlightColor: Colors.transparent,
+                onTap: () => onItemTapped(index),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        isSelected ? "$asset-active.svg" : "$asset.svg",
+                        color: isSelected
+                            ? AppColors.primary
+                            : AppColors.textPrimary,
+                        height: 24,
+                      ),
+                      const SizedBox(height: 2),
+                      CustomText(
+                        text: label,
+                        style: TextStyle(
+                          color: isSelected
+                              ? AppColors.primary
+                              : AppColors.textPrimary,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 2),
-                  CustomText(
-                    text: label,
-                    style: TextStyle(
-                      color: isSelected
-                          ? AppColors.primary
-                          : AppColors.textPrimary,
-                      fontSize: 12,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                  ),
-                ],
+                ),
               ),
-            )),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -54,21 +66,25 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: AppColors.white, //  background color
+      height: 70,
+      padding: EdgeInsets.zero,
+      color: AppColors.white,
       surfaceTintColor: Colors.transparent,
-      shape: const CircularNotchedRectangle(), // 👈 notch for FAB
-      elevation: 3,
+      shape: const CircularNotchedRectangle(),
+      elevation: 9,
       shadowColor: AppColors.textPrimary,
       notchMargin: 6,
+      clipBehavior: Clip.antiAliasWithSaveLayer, // enforces "overflow: hidden"
       child: SizedBox(
         height: 70,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildNavItem("assets/img/icon/icon-home", "Home", 0),
             _buildNavItem(
                 "assets/img/icon/icon-transaction", "Transactions", 1),
-            const SizedBox(width: 40), // 👈 reserved space for FAB
+            const SizedBox(width: 40), // notch space
             _buildNavItem("assets/img/icon/icon-wallet", "Wallet", 3),
             _buildNavItem("assets/img/icon/icon-profile", "Profile", 4),
           ],
