@@ -28,21 +28,28 @@ class CustomButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          elevation: 0, // flat style for outline
-          backgroundColor: backGroundcolor,
-          foregroundColor: isOutlined ? backGroundcolor : textColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            side: isOutlined
-                ? BorderSide(color: borderColor, width: 1) // 👈 outline border
-                : BorderSide.none,
+        style: ButtonStyle(
+          elevation: WidgetStateProperty.all(0), // 👈 removes all shadows
+          shadowColor: WidgetStateProperty.all(
+              Colors.transparent), // 👈 ensure no shadow color
+          backgroundColor: WidgetStateProperty.all(backGroundcolor),
+          foregroundColor: WidgetStateProperty.all(
+            isOutlined ? backGroundcolor : textColor,
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+              side: isOutlined
+                  ? BorderSide(color: borderColor, width: 1)
+                  : BorderSide.none,
+            ),
           ),
         ),
         child: Text(
@@ -50,7 +57,7 @@ class CustomButton extends StatelessWidget {
           style: TextStyle(
             fontSize: fontSize,
             fontWeight: FontWeight.w500,
-            color: textColor, // 👈 text color swap
+            color: textColor,
           ),
         ),
       ),

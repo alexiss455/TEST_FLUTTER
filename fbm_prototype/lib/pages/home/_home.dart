@@ -46,239 +46,248 @@ class HomePage extends StatelessWidget {
           ],
           backgroundColor: AppColors.transparent,
         ),
-        body: LayoutBuilder(builder: (context, constraints) {
-          final height = constraints.maxHeight;
-
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: height * 0.9,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(
-                            top: 80, bottom: 16, left: 16, right: 16),
-                        height: MediaQuery.of(context).size.height * 0.59,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(255, 76, 4, 4),
-                              AppColors.primary,
-                            ],
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(40),
-                            bottomRight: Radius.circular(40),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              spacing: 5,
-                              children: [
-                                CustomText(
-                                  text: "Welcome Juan!",
-                                  color: AppColors.white,
-                                  textAlign: TextAlign.center,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            CustomText(
-                                              text: "₱ 2,500",
-                                              color: AppColors.white,
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.w800,
-                                            ),
-                                            CustomText(
-                                              text: ".00",
-                                              color: AppColors.white
-                                                  .withOpacity(0.3),
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.w800,
-                                            ),
-                                            IconButton(
-                                                onPressed: () => {},
-                                                icon: SvgPicture.asset(
-                                                    'assets/img/icon/icon-eye.svg')),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    CustomText(
-                                        text: "My Wallet Balance",
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1.5),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            CustomText(
-                                              text: "₱ 10",
-                                              color: AppColors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            CustomText(
-                                              text: ".00",
-                                              color: AppColors.white
-                                                  .withOpacity(0.3),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            IconButton(
-                                                onPressed: () => {},
-                                                icon: SvgPicture.asset(
-                                                    'assets/img/icon/icon-eye.svg')),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    CustomText(
-                                      textAlign: TextAlign.center,
-                                      text: "Loyalty Funds",
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12,
-                                      height: 0.5,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                CustomButton(
-                                  fontSize: 16,
-                                  text: 'Currently Playing',
-                                  onPressed: () => {},
-                                  isOutlined: true,
-                                  textColor: AppColors.white,
-                                  borderColor: AppColors.warningLight,
-                                  height: 55,
-                                  backGroundcolor:
-                                      AppColors.warningLight.withOpacity(0.3),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: height * 0.545,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          width: double.infinity,
-                          child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 15),
+        body: SafeArea(
+            top: false,
+            child: LayoutBuilder(builder: (context, constraints) {
+              final height = constraints.maxHeight;
+              return SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    Container(
+                      child: Stack(
+                        children: [
+                          Container(
+                            // color: AppColors.accent,
+                            padding: EdgeInsets.only(bottom: 80),
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  top: 70, bottom: 140, left: 16, right: 16),
                               decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(
-                                      AppColors.mainRadius),
-                                  boxShadow: [AppColors.shadow1]),
-                              child: ActionGrid(items: [
-                                ActionItem(
-                                  icon: 'assets/img/icon/icon-transfer.svg',
-                                  label: 'Transfer',
-                                  onTap: () {},
-                                  color: AppColors.primary,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255, 76, 4, 4),
+                                    AppColors.primary,
+                                  ],
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
                                 ),
-                                ActionItem(
-                                  icon: 'assets/img/icon/icon-topup.svg',
-                                  label: 'Top Up',
-                                  onTap: () {},
-                                  color: AppColors.primary,
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(40),
+                                  bottomRight: Radius.circular(40),
                                 ),
-                                ActionItem(
-                                  icon: 'assets/img/icon/icon-withdraw.svg',
-                                  label: 'Top Up',
-                                  onTap: () {},
-                                  color: AppColors.primary,
-                                ),
-                                ActionItem(
-                                  icon: 'assets/img/icon/icon-refer.svg',
-                                  label: 'Refer',
-                                  onTap: () {},
-                                  color: AppColors.primary,
-                                ),
-                                ActionItem(
-                                  icon: 'assets/img/icon/icon-wallet-type1.svg',
-                                  label: 'My Wallet',
-                                  onTap: () {},
-                                  color: AppColors.primary,
-                                ),
-                                ActionItem(
-                                  icon: 'assets/img/icon/icon-scan-type1.svg',
-                                  label: 'Scan',
-                                  onTap: () {},
-                                  color: AppColors.primary,
-                                ),
-                                ActionItem(
-                                  icon: 'assets/img/icon/icon-my-account.svg',
-                                  label: 'My Account',
-                                  onTap: () {},
-                                  color: AppColors.primary,
-                                ),
-                              ])),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: CustomText(
-                      fontWeight: FontWeight.w600,
-                      text: 'Enjoy Amazing Promos',
-                      textAlign: TextAlign.left,
-                    )),
-                SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    spacing: 20,
-                    children: [
-                      _buildItemPromos(1,
-                          'FBM® prepares a sparkling exhibition for ICE Barcelona with the debut of Croc’s Lock'),
-                      _buildItemPromos(2,
-                          'Join the Game Art in the casino games universe and win amazing prizes')
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
-          );
-        }));
+                              ),
+                              child: Column(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    spacing: 5,
+                                    children: [
+                                      CustomText(
+                                        text: "Welcome Juan!",
+                                        color: AppColors.white,
+                                        textAlign: TextAlign.center,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  CustomText(
+                                                    text: "₱ 2,500",
+                                                    color: AppColors.white,
+                                                    fontSize: 32,
+                                                    fontWeight: FontWeight.w800,
+                                                  ),
+                                                  CustomText(
+                                                    text: ".00",
+                                                    color: AppColors.white
+                                                        .withOpacity(0.3),
+                                                    fontSize: 32,
+                                                    fontWeight: FontWeight.w800,
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () => {},
+                                                      icon: SvgPicture.asset(
+                                                          'assets/img/icon/icon-eye.svg')),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          CustomText(
+                                              text: "My Wallet Balance",
+                                              color: AppColors.white,
+                                              fontWeight: FontWeight.w500,
+                                              height: 1.5),
+                                        ],
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  CustomText(
+                                                    text: "₱ 10",
+                                                    color: AppColors.white,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  CustomText(
+                                                    text: ".00",
+                                                    color: AppColors.white
+                                                        .withOpacity(0.3),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () => {},
+                                                      icon: SvgPicture.asset(
+                                                          'assets/img/icon/icon-eye.svg')),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          CustomText(
+                                            textAlign: TextAlign.center,
+                                            text: "Loyalty Funds",
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12,
+                                            height: 0.5,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      CustomButton(
+                                        fontSize: 16,
+                                        text: 'Currently Playing',
+                                        onPressed: () => {},
+                                        isOutlined: true,
+                                        textColor: AppColors.white,
+                                        borderColor: AppColors.warningLight,
+                                        height: 55,
+                                        backGroundcolor: AppColors.warningLight
+                                            .withOpacity(0.3),
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 10,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              width: double.infinity,
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 15),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(
+                                          AppColors.mainRadius),
+                                      boxShadow: [AppColors.shadow1]),
+                                  child: ActionGrid(items: [
+                                    ActionItem(
+                                      icon: 'assets/img/icon/icon-transfer.svg',
+                                      label: 'Transfer',
+                                      onTap: () {
+                                        print("height: $height");
+                                        print(screen.height);
+                                      },
+                                      color: AppColors.primary,
+                                    ),
+                                    ActionItem(
+                                      icon: 'assets/img/icon/icon-topup.svg',
+                                      label: 'Top Up',
+                                      onTap: () {},
+                                      color: AppColors.primary,
+                                    ),
+                                    ActionItem(
+                                      icon: 'assets/img/icon/icon-withdraw.svg',
+                                      label: 'Top Up',
+                                      onTap: () {},
+                                      color: AppColors.primary,
+                                    ),
+                                    ActionItem(
+                                      icon: 'assets/img/icon/icon-refer.svg',
+                                      label: 'Refer',
+                                      onTap: () {},
+                                      color: AppColors.primary,
+                                    ),
+                                    ActionItem(
+                                      icon:
+                                          'assets/img/icon/icon-wallet-type1.svg',
+                                      label: 'My Wallet',
+                                      onTap: () {},
+                                      color: AppColors.primary,
+                                    ),
+                                    ActionItem(
+                                      icon:
+                                          'assets/img/icon/icon-scan-type1.svg',
+                                      label: 'Scan',
+                                      onTap: () {},
+                                      color: AppColors.primary,
+                                    ),
+                                    ActionItem(
+                                      icon:
+                                          'assets/img/icon/icon-my-account.svg',
+                                      label: 'My Account',
+                                      onTap: () {},
+                                      color: AppColors.primary,
+                                    ),
+                                  ])),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 20, top: 20),
+                        child: CustomText(
+                          fontWeight: FontWeight.w600,
+                          text: 'Enjoy Amazing Promos',
+                          textAlign: TextAlign.left,
+                        )),
+                    SingleChildScrollView(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(spacing: 20, children: [
+                        _buildItemPromos(1,
+                            'FBM® prepares a sparkling exhibition for ICE Barcelona with the debut of Croc’s Lock'),
+                        _buildItemPromos(2,
+                            'Join the Game Art in the casino games universe and win amazing prizes')
+                      ]),
+                    ),
+                    SizedBox(height: 20),
+                  ]));
+            })));
   }
 
   _buildItemPromos(int promo, String pLabel) {
