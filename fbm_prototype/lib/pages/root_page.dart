@@ -1,5 +1,3 @@
-// lib/pages/root_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:FBM/components/_custom_colors.dart';
@@ -22,7 +20,9 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   int _selectedIndex = 0;
+  bool _isLoading = false;
 
+  final Set<String> _loadedRoutes = {'/'};
   final List<String> _routes = [
     '/',
     '/transactions',
@@ -31,45 +31,84 @@ class _RootPageState extends State<RootPage> {
     '/profile',
   ];
 
-  void _onItemTapped(int index) {
+  Future<void> _onItemTapped(int index) async {
+    final String route = _routes[index];
+
+    if (!_loadedRoutes.contains(route)) {
+      setState(() => _isLoading = true);
+
+      await Future.delayed(const Duration(seconds: 1));
+
+      if (!mounted) return;
+      _loadedRoutes.add(route);
+      setState(() => _isLoading = false);
+    }
+
     setState(() => _selectedIndex = index);
-    _navigatorKey.currentState!.pushNamedAndRemoveUntil(
-      _routes[index],
-      (route) => false,
+    _navigatorKey.currentState!.pushReplacement(_noTransitionRoute(route));
+  }
+
+  PageRoute _noTransitionRoute(String route) {
+    Widget page;
+
+    switch (route) {
+      case '/':
+        page = HomePage();
+        break;
+      case '/transactions':
+        page = TransactionsPage();
+        break;
+      case '/scan':
+        page = ScanPage();
+        break;
+      case '/wallet':
+        page = WalletPage();
+        break;
+      case '/profile':
+        page = ProfilePage();
+        break;
+      default:
+        page = const Center(child: Text("Not found"));
+    }
+
+    return PageRouteBuilder(
+      pageBuilder: (_, __, ___) => page,
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Navigator(
-        key: _navigatorKey,
-        initialRoute: '/',
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case '/':
-              return MaterialPageRoute(builder: (_) => const HomePage());
-            case '/transactions':
-              return MaterialPageRoute(builder: (_) => TransactionsPage());
-            case '/scan':
-              return MaterialPageRoute(builder: (_) => ScanPage());
-            case '/wallet':
-              return MaterialPageRoute(builder: (_) => WalletPage());
-            case '/profile':
-              return MaterialPageRoute(builder: (_) => ProfilePage());
-            default:
-              return MaterialPageRoute(
-                builder: (_) => Center(child: Text("Not found")),
-              );
-          }
-        },
-      ),
-      bottomNavigationBar: CustomBottomNav(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
-      floatingActionButton: _buildFab(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    return Stack(
+      children: [
+        Scaffold(
+          body: Navigator(
+            key: _navigatorKey,
+            onGenerateRoute: (settings) =>
+                _noTransitionRoute(_routes[_selectedIndex]),
+          ),
+          bottomNavigationBar: CustomBottomNav(
+            selectedIndex: _selectedIndex,
+            onItemTapped: _onItemTapped,
+          ),
+          floatingActionButton: _buildFab(context),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+        ),
+        if (_isLoading)
+          Positioned.fill(
+            child: Container(
+              color: Colors.white.withOpacity(0.9),
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.primary,
+                  strokeWidth: 4,
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 
@@ -93,14 +132,14 @@ class _RootPageState extends State<RootPage> {
         ],
       ),
       child: Container(
-        margin: const EdgeInsets.all(3), // border thickness
+        margin: const EdgeInsets.all(3),
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white,
         ),
         child: RawMaterialButton(
           shape: const CircleBorder(),
-          onPressed: () => _onItemTapped(2), // 👈 always go to scan
+          onPressed: () => _onItemTapped(2), // Scan tab
           child: SvgPicture.asset(
             'assets/img/icon/icon-scanner.svg',
             width: 30,

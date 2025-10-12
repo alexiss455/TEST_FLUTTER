@@ -18,9 +18,9 @@ class RouteGenerator {
     final args = settings.arguments;
     return PageRouteBuilder(
       transitionDuration:
-          const Duration(milliseconds: 150), // 👈 speed (faster)
+          const Duration(milliseconds: 200), // 👈 speed (faster)
       reverseTransitionDuration:
-          const Duration(milliseconds: 150), // 👈 back speeds
+          const Duration(milliseconds: 200), // 👈 back speeds
       pageBuilder: (context, animation, secondaryAnimation) {
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
 

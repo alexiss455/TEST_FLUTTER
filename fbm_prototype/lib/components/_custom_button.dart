@@ -10,8 +10,9 @@ class CustomButton extends StatelessWidget {
   final double height;
   final double width;
   final double fontSize;
-  final bool isOutlined; // 👈 outline toggle
+  final bool isOutlined;
   final Color borderColor;
+  final bool isLoading;
 
   const CustomButton({
     Key? key,
@@ -23,23 +24,24 @@ class CustomButton extends StatelessWidget {
     this.height = 60,
     this.width = double.infinity,
     this.fontSize = 16,
-    this.isOutlined = false, // 👈 default false
-    this.borderColor = AppColors.primary, // 👈 default false
+    this.isOutlined = false,
+    this.isLoading = false,
+    this.borderColor = AppColors.primary,
   }) : super(key: key);
 
-  @override
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed, // disable when loading
         style: ButtonStyle(
-          elevation: WidgetStateProperty.all(0), // 👈 removes all shadows
-          shadowColor: WidgetStateProperty.all(
-              Colors.transparent), // 👈 ensure no shadow color
-          backgroundColor: WidgetStateProperty.all(backGroundcolor),
+          elevation: WidgetStateProperty.all(0),
+          shadowColor: WidgetStateProperty.all(Colors.transparent),
+          backgroundColor: WidgetStateProperty.all(
+            isOutlined ? Colors.transparent : backGroundcolor,
+          ),
           foregroundColor: WidgetStateProperty.all(
             isOutlined ? backGroundcolor : textColor,
           ),
@@ -52,14 +54,23 @@ class CustomButton extends StatelessWidget {
             ),
           ),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontWeight: FontWeight.w500,
-            color: textColor,
-          ),
-        ),
+        child: isLoading
+            ? SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
+                ),
+              )
+            : Text(
+                text,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w600,
+                  color: isOutlined ? backGroundcolor : textColor,
+                ),
+              ),
       ),
     );
   }

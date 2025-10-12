@@ -1,3 +1,4 @@
+import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -7,12 +8,12 @@ class TransactionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: CustomText(
           text: 'Transaction',
           fontWeight: FontWeight.w600,
           fontSize: 18,
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(),
     );

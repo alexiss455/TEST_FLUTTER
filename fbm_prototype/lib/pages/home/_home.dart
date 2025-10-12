@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:FBM/components/_custom_button.dart';
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => HomePageState();
 }
@@ -17,10 +15,20 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
   bool _isScrolled = false;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
+
+    //
+    Future.delayed(Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    });
+
+    //
     _scrollController.addListener(() {
       print(_scrollController.offset);
       if (_scrollController.offset > 1 && !_isScrolled) {
@@ -48,7 +56,9 @@ class HomePageState extends State<HomePage> {
               child: AppBar(
                 backgroundColor: _isScrolled
                     ? AppColors.white.withOpacity(0)
-                    : AppColors.transparent,
+                    : _isLoading
+                        ? AppColors.primary
+                        : AppColors.transparent,
                 elevation: 0,
                 leadingWidth: 120,
                 leading: Padding(
@@ -87,229 +97,218 @@ class HomePageState extends State<HomePage> {
             top: false,
             child: LayoutBuilder(builder: (context, constraints) {
               final height = constraints.maxHeight;
+
+              if (_isLoading) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(color: AppColors.primary),
+                    ],
+                  ),
+                );
+              }
+
               return SingleChildScrollView(
                   controller: _scrollController,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          child: Stack(
-                            children: [
-                              Container(
-                                // color: AppColors.accent,
+                        Stack(
+                          children: [
+                            Container(
+                              // color: AppColors.accent,
+                              padding: EdgeInsets.only(bottom: height * 0.09),
+                              child: Container(
                                 padding: EdgeInsets.only(
-                                    bottom: screen.height * 0.075),
-
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 70,
-                                      bottom: 140,
-                                      left: 16,
-                                      right: 16),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color.fromARGB(255, 76, 4, 4),
-                                        AppColors.primary,
-                                      ],
-                                      begin: Alignment.topRight,
-                                      end: Alignment.bottomLeft,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(40),
-                                      bottomRight: Radius.circular(40),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        spacing: 5,
-                                        children: [
-                                          CustomText(
-                                            text: "Welcome Juan!",
-                                            color: AppColors.white,
-                                            textAlign: TextAlign.center,
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  CustomText(
-                                                    text: "₱ 2,500",
-                                                    color: AppColors.white,
-                                                    fontSize: 32,
-                                                    fontWeight: FontWeight.w800,
-                                                  ),
-                                                  CustomText(
-                                                    text: ".00",
-                                                    color: AppColors.white
-                                                        .withOpacity(0.3),
-                                                    fontSize: 32,
-                                                    fontWeight: FontWeight.w800,
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () => {},
-                                                      icon: SvgPicture.asset(
-                                                          'assets/img/icon/icon-eye.svg')),
-                                                ],
-                                              ),
-                                              CustomText(
-                                                  text: "My Wallet Balance",
-                                                  color: AppColors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.5),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      CustomText(
-                                                        text: "₱ 10",
-                                                        color: AppColors.white,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                      CustomText(
-                                                        text: ".00",
-                                                        color: AppColors.white
-                                                            .withOpacity(0.3),
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                      IconButton(
-                                                          onPressed: () => {},
-                                                          icon: SvgPicture.asset(
-                                                              'assets/img/icon/icon-eye.svg')),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              CustomText(
-                                                textAlign: TextAlign.center,
-                                                text: "Loyalty Funds",
-                                                color: AppColors.white,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 12,
-                                                height: 0.5,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: 10),
-                                          CustomButton(
-                                            fontSize: 16,
-                                            text: 'Currently Playing',
-                                            onPressed: () => {},
-                                            isOutlined: true,
-                                            textColor: AppColors.white,
-                                            borderColor: AppColors.warningLight,
-                                            height: 55,
-                                            backGroundcolor: AppColors
-                                                .warningLight
-                                                .withOpacity(0.3),
-                                          ),
-                                          SizedBox(height: 10),
-                                        ],
-                                      ),
+                                    top: 70,
+                                    bottom: height * 0.17,
+                                    left: 16,
+                                    right: 16),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(255, 76, 4, 4),
+                                      AppColors.primary,
                                     ],
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(40),
+                                    bottomRight: Radius.circular(40),
                                   ),
                                 ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  width: double.infinity,
-                                  child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 15),
-                                      decoration: BoxDecoration(
+                                child: Column(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      spacing: 5,
+                                      children: [
+                                        CustomText(
+                                          text: "Welcome Juan!",
                                           color: AppColors.white,
-                                          borderRadius: BorderRadius.circular(
-                                              AppColors.mainRadius),
-                                          boxShadow: [AppColors.shadow1]),
-                                      child: ActionGrid(items: [
-                                        ActionItem(
-                                          icon:
-                                              'assets/img/icon/icon-transfer.svg',
-                                          label: 'Transfer',
-                                          onTap: () {},
-                                          color: AppColors.primary,
+                                          textAlign: TextAlign.center,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        ActionItem(
-                                          icon:
-                                              'assets/img/icon/icon-topup.svg',
-                                          label: 'Top Up',
-                                          onTap: () {},
-                                          color: AppColors.primary,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CustomText(
+                                              text: "₱ 2,500",
+                                              color: AppColors.white,
+                                              fontSize: 32,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                            CustomText(
+                                              text: ".00",
+                                              color: AppColors.white
+                                                  .withOpacity(0.3),
+                                              fontSize: 32,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                            IconButton(
+                                                onPressed: () => {},
+                                                icon: SvgPicture.asset(
+                                                    'assets/img/icon/icon-eye.svg')),
+                                          ],
                                         ),
-                                        ActionItem(
-                                          icon:
-                                              'assets/img/icon/icon-withdraw.svg',
-                                          label: 'Withdraw',
-                                          onTap: () {},
-                                          color: AppColors.primary,
+                                        CustomText(
+                                            text: "My Wallet Balance",
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.w500,
+                                            height: 1.5),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                CustomText(
+                                                  text: "₱ 10",
+                                                  color: AppColors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                CustomText(
+                                                  text: ".00",
+                                                  color: AppColors.white
+                                                      .withOpacity(0.3),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                IconButton(
+                                                    onPressed: () => {},
+                                                    icon: SvgPicture.asset(
+                                                        'assets/img/icon/icon-eye.svg')),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        ActionItem(
-                                          icon:
-                                              'assets/img/icon/icon-refer.svg',
-                                          label: 'Refer',
-                                          onTap: () {},
-                                          color: AppColors.primary,
+                                        CustomText(
+                                          textAlign: TextAlign.center,
+                                          text: "Loyalty Funds",
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12,
+                                          height: 0.5,
                                         ),
-                                        ActionItem(
-                                          icon:
-                                              'assets/img/icon/icon-wallet-type1.svg',
-                                          label: 'My Wallet',
-                                          onTap: () {},
-                                          color: AppColors.primary,
+                                        SizedBox(height: 10),
+                                        CustomButton(
+                                          fontSize: 16,
+                                          text: 'Currently Playing',
+                                          onPressed: () => {},
+                                          isOutlined: true,
+                                          textColor: AppColors.white,
+                                          borderColor: AppColors.warningLight,
+                                          height: 55,
+                                          backGroundcolor: AppColors
+                                              .warningLight
+                                              .withOpacity(0.3),
                                         ),
-                                        ActionItem(
-                                          icon:
-                                              'assets/img/icon/icon-scan-type1.svg',
-                                          label: 'Scan',
-                                          onTap: () {},
-                                          color: AppColors.primary,
-                                        ),
-                                        ActionItem(
-                                          icon:
-                                              'assets/img/icon/icon-my-account.svg',
-                                          label: 'My Account',
-                                          onTap: () {},
-                                          color: AppColors.primary,
-                                        ),
-                                      ])),
+                                        SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                width: double.infinity,
+                                child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 15),
+                                    decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius: BorderRadius.circular(
+                                            AppColors.mainRadius),
+                                        boxShadow: [AppColors.shadow1]),
+                                    child: ActionGrid(items: [
+                                      ActionItem(
+                                        icon:
+                                            'assets/img/icon/icon-transfer.svg',
+                                        label: 'Transfer',
+                                        onTap: () {},
+                                        color: AppColors.primary,
+                                      ),
+                                      ActionItem(
+                                        icon: 'assets/img/icon/icon-topup.svg',
+                                        label: 'Top Up',
+                                        onTap: () {},
+                                        color: AppColors.primary,
+                                      ),
+                                      ActionItem(
+                                        icon:
+                                            'assets/img/icon/icon-withdraw.svg',
+                                        label: 'Withdraw',
+                                        onTap: () {},
+                                        color: AppColors.primary,
+                                      ),
+                                      ActionItem(
+                                        icon: 'assets/img/icon/icon-refer.svg',
+                                        label: 'Refer',
+                                        onTap: () {},
+                                        color: AppColors.primary,
+                                      ),
+                                      ActionItem(
+                                        icon:
+                                            'assets/img/icon/icon-wallet-type1.svg',
+                                        label: 'My Wallet',
+                                        onTap: () {},
+                                        color: AppColors.primary,
+                                      ),
+                                      ActionItem(
+                                        icon:
+                                            'assets/img/icon/icon-scan-type1.svg',
+                                        label: 'Scan',
+                                        onTap: () {},
+                                        color: AppColors.primary,
+                                      ),
+                                      ActionItem(
+                                        icon:
+                                            'assets/img/icon/icon-my-account.svg',
+                                        label: 'My Account',
+                                        onTap: () {},
+                                        color: AppColors.primary,
+                                      ),
+                                    ])),
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
                             padding: EdgeInsets.only(left: 20, top: 20),
