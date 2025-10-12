@@ -39,29 +39,21 @@ class RouteGenerator {
 
           /// PRIVATE ROUTES (fade if authenticated, else slide back to login)
           case AppRoutes.home:
-            return authProvider.isAuthenticated
-                ? const RootPage()
-                : LoginPage();
+            return authProvider.isAuthenticated ? RootPage() : LoginPage();
 
           case AppRoutes.transactions:
             return authProvider.isAuthenticated
-                ? const TransactionsPage()
+                ? TransactionsPage()
                 : LoginPage();
 
           case AppRoutes.scan:
-            return authProvider.isAuthenticated
-                ? const ScanPage()
-                : LoginPage();
+            return authProvider.isAuthenticated ? ScanPage() : LoginPage();
 
           case AppRoutes.wallet:
-            return authProvider.isAuthenticated
-                ? const WalletPage()
-                : LoginPage();
+            return authProvider.isAuthenticated ? WalletPage() : LoginPage();
 
           case AppRoutes.profile:
-            return authProvider.isAuthenticated
-                ? const ProfilePage()
-                : LoginPage();
+            return authProvider.isAuthenticated ? ProfilePage() : LoginPage();
 
           /// FALLBACK
           default:
