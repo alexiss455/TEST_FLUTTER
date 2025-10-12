@@ -33,69 +33,72 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: LayoutBuilder(builder: (context, contrast) {
+      body: SafeArea(child: LayoutBuilder(builder: (context, constraints) {
+        final height = constraints.maxHeight;
         return SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
             children: [
               Center(
-                child: Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween, // space header vs footer
-                  children: [
-                    Image.asset(
-                      'assets/img/logo/fbm_r_big.png',
-                      filterQuality: FilterQuality.high,
-                      height: 100,
-                    ),
-                    CustomText(
-                      text: "FBM Casino Games and Solutions",
-                      fontSize: 16,
-                    ),
-                    SizedBox(height: 40),
-                    CustomText(
-                      text: "Login to your account",
-                      fontWeight: FontWeight.w600,
-                    ),
-                    SizedBox(height: 10),
-                    CustomInput(
-                      icon: Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: SvgPicture.asset(
-                          "assets/img/icon/icon-user-type1.svg",
-                        ),
-                      ),
-                      placeholder: "Username",
-                      type: TextInputType.text,
-                    ),
-                    SizedBox(height: 10),
-                    CustomInput(
-                      icon: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: SvgPicture.asset(
-                          "assets/img/icon/icon-password.svg",
-                        ),
-                      ),
-                      placeholder: "Password",
-                      type: TextInputType.visiblePassword,
-                    ),
-                    SizedBox(height: 40),
-                    CustomButton(
-                      text: 'Login',
-                      onPressed: () => _login(context),
-                    ),
-                    SizedBox(height: 20),
-                    Row(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: height,
+                  ),
+                  child: IntrinsicHeight(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/img/logo/fbm_r_big.png',
+                          filterQuality: FilterQuality.high,
+                          height: 100,
+                        ),
+                        SizedBox(height: 10),
+                        CustomText(
+                          text: "FBM Casino Games and Solutions",
+                          fontSize: 16,
+                        ),
+                        SizedBox(height: 40),
+                        CustomText(
+                          text: "Login to your account",
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(height: 10),
+                        CustomInput(
+                          icon: Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              "assets/img/icon/icon-user-type1.svg",
+                            ),
+                          ),
+                          placeholder: "Username",
+                          type: TextInputType.text,
+                        ),
+                        SizedBox(height: 10),
+                        CustomInput(
+                          icon: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: SvgPicture.asset(
+                              "assets/img/icon/icon-password.svg",
+                            ),
+                          ),
+                          placeholder: "Password",
+                          type: TextInputType.visiblePassword,
+                        ),
+                        SizedBox(height: 40),
+                        CustomButton(
+                          text: 'Login',
+                          onPressed: () => _login(context),
+                        ),
+                        SizedBox(height: 20),
                         CustomText(
                           text: 'Forgot password?',
                           color: AppColors.textSecondary,
                         ),
                       ],
                     ),
-                    // ----------- FOOTER -----------
-                  ],
+                  ),
                 ),
               ),
 
