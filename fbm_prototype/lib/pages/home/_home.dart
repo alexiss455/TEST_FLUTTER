@@ -227,13 +227,12 @@ class HomePageState extends State<HomePage> {
                                           fontSize: 16,
                                           text: 'Currently Playing',
                                           onPressed: () => {},
-                                          isOutlined: true,
-                                          textColor: AppColors.white,
+                                          border: true,
                                           borderColor: AppColors.warningLight,
                                           height: 55,
                                           backGroundcolor: AppColors
                                               .warningLight
-                                              .withOpacity(0.3),
+                                              .withOpacity(0.2),
                                         ),
                                         SizedBox(height: 10),
                                       ],

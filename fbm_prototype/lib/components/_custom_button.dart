@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
   final bool isOutlined;
   final Color borderColor;
   final bool isLoading;
+  final bool border;
 
   const CustomButton({
     Key? key,
@@ -26,6 +27,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize = 16,
     this.isOutlined = false,
     this.isLoading = false,
+    this.border = false,
     this.borderColor = AppColors.primary,
   }) : super(key: key);
 
@@ -48,7 +50,7 @@ class CustomButton extends StatelessWidget {
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
-              side: isOutlined
+              side: border
                   ? BorderSide(color: borderColor, width: 1)
                   : BorderSide.none,
             ),
@@ -68,7 +70,7 @@ class CustomButton extends StatelessWidget {
                 style: TextStyle(
                   fontSize: fontSize,
                   fontWeight: FontWeight.w600,
-                  color: isOutlined ? backGroundcolor : textColor,
+                  color: textColor,
                 ),
               ),
       ),

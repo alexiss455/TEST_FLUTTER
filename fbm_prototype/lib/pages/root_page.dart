@@ -20,9 +20,7 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   int _selectedIndex = 0;
-  bool _isLoading = false;
 
-  final Set<String> _loadedRoutes = {'/'};
   final List<String> _routes = [
     '/',
     '/transactions',
@@ -33,16 +31,6 @@ class _RootPageState extends State<RootPage> {
 
   Future<void> _onItemTapped(int index) async {
     final String route = _routes[index];
-
-    if (!_loadedRoutes.contains(route)) {
-      setState(() => _isLoading = true);
-
-      await Future.delayed(const Duration(seconds: 1));
-
-      if (!mounted) return;
-      _loadedRoutes.add(route);
-      setState(() => _isLoading = false);
-    }
 
     setState(() => _selectedIndex = index);
     _navigatorKey.currentState!.pushReplacement(_noTransitionRoute(route));
@@ -96,18 +84,6 @@ class _RootPageState extends State<RootPage> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
         ),
-        if (_isLoading)
-          Positioned.fill(
-            child: Container(
-              color: Colors.white.withOpacity(0.9),
-              child: const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.primary,
-                  strokeWidth: 4,
-                ),
-              ),
-            ),
-          ),
       ],
     );
   }
