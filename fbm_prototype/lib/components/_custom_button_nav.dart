@@ -27,7 +27,7 @@ class CustomBottomNav extends StatelessWidget {
               child: InkResponse(
                 containedInkWell: false,
                 radius: 56,
-                splashColor: AppColors.primary.withOpacity(0.1),
+                splashColor: AppColors.primary.withOpacity(0.01),
                 highlightColor: Colors.transparent,
                 onTap: () => onItemTapped(index),
                 child: Align(
