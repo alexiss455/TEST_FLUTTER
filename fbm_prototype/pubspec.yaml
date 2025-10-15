@@ -89,8 +89,10 @@ flutter:
     - assets/img/icon/icon-eye.svg
 
     # LOGO SVG
-    - assets/img/logo/fbm_r_big.svg
     - assets/img/logo/fbm_r_big.png 
+    - assets/img/logo/fbm_r_big.svg
+    - assets/img/logo/gcash.svg
+    - assets/img/logo/pnb.svg 
 
     # BACKGROUND IMAGE
     - assets/img/bg/img-selfie.png

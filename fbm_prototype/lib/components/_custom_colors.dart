@@ -41,4 +41,5 @@ class AppColors {
 
   // Radii
   static const double mainRadius = 20.0;
+  static const double subRadius = 12.0;
 }
