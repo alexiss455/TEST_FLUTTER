@@ -12,6 +12,7 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color grey = Color(0xFFD6D6D6);
   static const Color greyLight = Color(0xFFF7F7FB);
+  static const Color greyLigh2 = Color(0xFFE0E0E0);
 
   // Text colors
   static const Color textPrimary = Color(0xFF555B70);
@@ -42,4 +43,5 @@ class AppColors {
   // Radii
   static const double mainRadius = 20.0;
   static const double subRadius = 12.0;
+  static const double circleRadius = 100.0;
 }
