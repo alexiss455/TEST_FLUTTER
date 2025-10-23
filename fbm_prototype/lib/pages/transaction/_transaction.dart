@@ -1,6 +1,7 @@
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TransactionsPage extends StatefulWidget {
   const TransactionsPage({super.key}); // 👈 add const
@@ -76,11 +77,11 @@ class TrascactionPageState extends State<TransactionsPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 10.0),
+                          horizontal: 8.0, vertical: 8.0),
                       decoration: BoxDecoration(
                         color: AppColors.greyLight,
                         borderRadius: BorderRadius.all(
@@ -88,7 +89,7 @@ class TrascactionPageState extends State<TransactionsPage> {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        spacing: 10,
+                        spacing: 8.0,
                         children: _tabs.asMap().entries.map((entry) {
                           final index = entry.key;
                           final tab = entry.value;
@@ -98,8 +99,8 @@ class TrascactionPageState extends State<TransactionsPage> {
                             child: GestureDetector(
                               onTap: () => _onItemTapped(index),
                               child: AnimatedContainer(
-                                duration: Duration(milliseconds: 250),
-                                padding: EdgeInsets.symmetric(vertical: 12),
+                                duration: Duration(milliseconds: 10),
+                                padding: EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                     color: isActive
                                         ? AppColors.primary.withOpacity(0.2)
@@ -129,7 +130,21 @@ class TrascactionPageState extends State<TransactionsPage> {
                   // Your content goes here
                   Container(
                     width: double.infinity,
-                    color: AppColors.greyLight,
+                    child: Row(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: AppColors.greyLight,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(AppColors.mainRadius)),
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/img/logo/gcash.svg',
+                              semanticsLabel: 'Red dash paths',
+                            )),
+                      ],
+                    ),
                   ),
                 ],
               ));
