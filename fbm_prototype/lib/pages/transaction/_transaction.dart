@@ -1,5 +1,7 @@
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
+import 'package:FBM/helpers/date_format.dart';
+import 'package:FBM/helpers/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../_data/data.dart';
@@ -55,7 +57,8 @@ class TransactionsPageState extends State<TransactionsPage>
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.only(
+                  top: 5.0, left: 16.0, right: 16.0, bottom: 16.0),
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -71,7 +74,6 @@ class TransactionsPageState extends State<TransactionsPage>
                     final index = entry.key;
                     final tab = entry.value;
                     final isActive = _tabController.index == index;
-
                     return Expanded(
                         flex: 1,
                         child: AnimatedContainer(
@@ -112,28 +114,100 @@ class TransactionsPageState extends State<TransactionsPage>
                 ),
               ),
             ),
-
             //
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                physics: NeverScrollableScrollPhysics(), // disable swipe scroll
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  // "All" Tab
-                  _buildTransactionList(jsonData.transactionsListItems),
+                  /// 🧾 ALL TRANSACTIONS (Grouped by Month)
+                  ListView(
+                    children: jsonData.groupedByMonth.map((group) {
+                      final month = group['category_month'];
+                      final transactions = group['items'] as List<dynamic>;
 
-                  // "Withdraw" Tab
-                  _buildTransactionList(jsonData.transactionsListItems
-                      .where((t) => t['category'] == 'WITHDRAW')
-                      .toList()),
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 8.0),
+                            child: CustomText(
+                              text: DateFormat.formatMonth(month),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          ...transactions
+                              .map((item) => _TransactionItem(item))
+                              .toList(),
+                        ],
+                      );
+                    }).toList(),
+                  ),
 
-                  // "Top Up" Tab
-                  _buildTransactionList(jsonData.transactionsListItems
-                      .where((t) => t['category'] == 'TOP UP')
-                      .toList()),
+                  /// 💸 WITHDRAW (Grouped by Month)
+                  ListView(
+                    children: jsonData.groupedByMonth.map((group) {
+                      final month = group['category_month'];
+                      final transactions = (group['items'] as List<dynamic>)
+                          .where((item) => item['category'] == 'WITHDRAW')
+                          .toList();
+
+                      if (transactions.isEmpty) return const SizedBox.shrink();
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 8.0),
+                            child: CustomText(
+                              text: DateFormat.formatMonth(month),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          ...transactions
+                              .map((item) => _TransactionItem(item))
+                              .toList(),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+
+                  /// 💰 TOP UP (Grouped by Month)
+                  ListView(
+                    children: jsonData.groupedByMonth.map((group) {
+                      final month = group['category_month'];
+                      final transactions = (group['items'] as List<dynamic>)
+                          .where((item) => item['category'] == 'TOP UP')
+                          .toList();
+
+                      if (transactions.isEmpty) return const SizedBox.shrink();
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 8.0),
+                            child: CustomText(
+                              text: DateFormat.formatMonth(month),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          ...transactions
+                              .map((item) => _TransactionItem(item))
+                              .toList(),
+                        ],
+                      );
+                    }).toList(),
+                  ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -151,7 +225,7 @@ class TransactionsPageState extends State<TransactionsPage>
   Widget _TransactionItem(Map<String, dynamic> item) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       decoration: BoxDecoration(
         border:
             Border(bottom: BorderSide(color: AppColors.greyLight3, width: 1)),
@@ -196,11 +270,11 @@ class TransactionsPageState extends State<TransactionsPage>
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               CustomText(
-                text: 'Php ${item['amount']}',
+                text: 'Php ${NumberFormat.format(item['amount'] ?? 0)}',
                 fontWeight: FontWeight.w600,
               ),
               CustomText(
-                text: item['date'] ?? '',
+                text: DateFormat.format(item['date'] ?? ''),
                 color: AppColors.textSecondary,
                 fontWeight: FontWeight.w400,
               ),
