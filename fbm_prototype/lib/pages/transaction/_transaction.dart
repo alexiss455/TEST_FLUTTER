@@ -16,6 +16,12 @@ class TransactionsPageState extends State<TransactionsPage>
   late TabController _tabController;
   final _tabs = ['All', 'Withdraw', 'Top Up'];
 
+  void _handleTabSelection(int index) {
+    setState(() {
+      _tabController.index = index;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +58,7 @@ class TransactionsPageState extends State<TransactionsPage>
               padding: EdgeInsets.all(16.0),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: AppColors.textSecondary.withOpacity(0.05),
                   borderRadius:
@@ -60,44 +66,54 @@ class TransactionsPageState extends State<TransactionsPage>
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  spacing: 8.0,
+                  spacing: 6.0,
                   children: _tabs.asMap().entries.map((entry) {
                     final index = entry.key;
                     final tab = entry.value;
                     final isActive = _tabController.index == index;
 
                     return Expanded(
-                      child: GestureDetector(
-                        onTap: () => _tabController.animateTo(index),
+                        flex: 1,
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 10),
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: isActive
-                                ? AppColors.primary.withOpacity(0.2)
-                                : AppColors.white,
-                            border: Border.all(
-                                color: Color.fromARGB(255, 243, 243, 243)),
-                            borderRadius:
-                                BorderRadius.circular(AppColors.subRadius),
-                          ),
-                          child: Center(
-                            child: CustomText(
-                              text: tab,
-                              color: isActive
-                                  ? AppColors.primary
-                                  : AppColors.textPrimary,
-                              fontWeight:
-                                  isActive ? FontWeight.w600 : FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                            duration: Duration(milliseconds: 100),
+                            child: InkWell(
+                              borderRadius:
+                                  BorderRadius.circular(AppColors.subRadius),
+                              onTap: () => _handleTabSelection(index),
+                              child: GestureDetector(
+                                onTap: () => _handleTabSelection(index),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: isActive
+                                        ? AppColors.primary.withOpacity(0.2)
+                                        : AppColors.white,
+                                    border: Border.all(
+                                        color:
+                                            Color.fromARGB(255, 243, 243, 243)),
+                                    borderRadius: BorderRadius.circular(
+                                        AppColors.subRadius),
+                                  ),
+                                  child: Center(
+                                    child: CustomText(
+                                      text: tab,
+                                      color: isActive
+                                          ? AppColors.primary
+                                          : AppColors.textPrimary,
+                                      fontWeight: isActive
+                                          ? FontWeight.w600
+                                          : FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )));
                   }).toList(),
                 ),
               ),
             ),
+
+            //
             Expanded(
               child: TabBarView(
                 controller: _tabController,
