@@ -12,6 +12,7 @@ class CustomText extends StatelessWidget {
   final TextOverflow? overflow;
   final bool softWrap;
   final int? maxLines;
+  final String textTransform;
 
   const CustomText({
     Key? key,
@@ -25,10 +26,32 @@ class CustomText extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.height = 1.5,
     this.style,
+    this.textTransform = "none",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String displayText = text;
+
+    switch (textTransform) {
+      case "uppercase":
+        displayText = text.toUpperCase();
+        break;
+      case "lowercase":
+        displayText = text.toLowerCase();
+        break;
+      case "capitalize":
+        displayText = text
+            .split(' ')
+            .map((word) => word.isNotEmpty
+                ? word[0].toUpperCase() + word.substring(1).toLowerCase()
+                : '')
+            .join(' ');
+        break;
+      default:
+        displayText = text;
+    }
+
     final baseStyle = TextStyle(
       fontSize: fontSize,
       color: color,
@@ -37,7 +60,7 @@ class CustomText extends StatelessWidget {
     );
 
     return Text(
-      text,
+      displayText,
       textAlign: textAlign,
       style: baseStyle.merge(style),
       overflow: overflow,
