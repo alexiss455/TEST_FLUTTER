@@ -1,3 +1,4 @@
+import 'package:FBM/pages/home/_home.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -68,41 +69,66 @@ class AppRouter {
       ),
 
       /// 🔒 Private routes (fade transition)
-      GoRoute(
-        path: AppRoutes.home,
-        builder: (context, state) => RootPage(),
-        pageBuilder: (context, state) => _fadePage(RootPage()),
-      ),
-      GoRoute(
-        path: AppRoutes.transactions,
-        builder: (context, state) => TransactionsPage(),
-        pageBuilder: (context, state) => _fadePage(TransactionsPage()),
-      ),
-      GoRoute(
-        path: AppRoutes.transactionsDetails,
-        builder: (context, state) => TransactionDetailsPage(),
-        pageBuilder: (context, state) => _fadePage(TransactionDetailsPage()),
-      ),
-      GoRoute(
-        path: AppRoutes.scan,
-        builder: (context, state) => ScanPage(),
-        pageBuilder: (context, state) => _fadePage(ScanPage()),
-      ),
-      GoRoute(
-        path: AppRoutes.wallet,
-        builder: (context, state) => WalletPage(),
-        pageBuilder: (context, state) => _fadePage(WalletPage()),
-      ),
-      GoRoute(
-        path: AppRoutes.profile,
-        builder: (context, state) => ProfilePage(),
-        pageBuilder: (context, state) => _fadePage(ProfilePage()),
+      /// The main shell route that hosts the bottom navigation
+      /// The main shell route that hosts the bottom navigation
+      ShellRoute(
+        builder: (context, state, child) {
+          return RootPage(child: child); // 👈 we'll modify RootPage below
+        },
+        routes: [
+          GoRoute(
+            path: AppRoutes.home,
+            builder: (context, state) => HomePage(),
+          ),
+          GoRoute(
+            path: AppRoutes.transactionsDetails,
+            builder: (context, state) {
+              final id =
+                  state.pathParameters['id']; // Access the path parameter
+              return TransactionDetailsPage(id: id);
+            },
+            pageBuilder: (context, state) =>
+                _slidePage(TransactionDetailsPage(id: '')),
+          ),
+          GoRoute(
+            path: AppRoutes.transactions,
+            builder: (context, state) => TransactionsPage(),
+            pageBuilder: (context, state) =>
+                _noTransitionPage(TransactionsPage()),
+          ),
+          GoRoute(
+            path: AppRoutes.scan,
+            builder: (context, state) => ScanPage(),
+            pageBuilder: (context, state) => _noTransitionPage(ScanPage()),
+          ),
+          GoRoute(
+            path: AppRoutes.wallet,
+            builder: (context, state) => WalletPage(),
+            pageBuilder: (context, state) => _noTransitionPage(WalletPage()),
+          ),
+          GoRoute(
+            path: AppRoutes.profile,
+            builder: (context, state) => ProfilePage(),
+            pageBuilder: (context, state) => _noTransitionPage(ProfilePage()),
+          ),
+        ],
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
       body: Center(child: Text('Page not found')),
     ),
   );
+
+  static CustomTransitionPage _noTransitionPage(Widget child) {
+    return CustomTransitionPage(
+      key: ValueKey(child.hashCode),
+      child: child,
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          child,
+    );
+  }
 
   /// Slide transition (for auth/public routes)
   static CustomTransitionPage _slidePage(Widget child) {

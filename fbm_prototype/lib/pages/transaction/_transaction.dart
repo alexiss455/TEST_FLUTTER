@@ -4,6 +4,7 @@ import 'package:FBM/helpers/date_format.dart';
 import 'package:FBM/helpers/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../_data/data.dart';
 
 class TransactionsPage extends StatefulWidget {
@@ -224,7 +225,9 @@ class TransactionsPageState extends State<TransactionsPage>
 
   Widget _TransactionItem(Map<String, dynamic> item) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).push('/transactions/${item['id']}');
+      },
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
