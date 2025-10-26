@@ -2,7 +2,9 @@ import 'package:FBM/components/_custom_app_bar.dart';
 import 'package:FBM/components/_custom_button.dart';
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
+import 'package:FBM/routes/route_list.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SelfieVerificationSuccess extends StatelessWidget {
   @override
@@ -30,7 +32,7 @@ class SelfieVerificationSuccess extends StatelessWidget {
                 SizedBox(height: 40),
                 CustomButton(
                   text: 'Go to Login',
-                  onPressed: () => {Navigator.pushNamed(context, '/login')},
+                  onPressed: () => {context.go(AppRoutes.login)},
                 )
               ])),
         ));

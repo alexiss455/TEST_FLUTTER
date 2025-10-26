@@ -1,8 +1,10 @@
+import 'package:FBM/routes/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:FBM/components/_custom_button.dart';
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_input.dart';
 import 'package:FBM/components/_custom_text.dart';
+import 'package:go_router/go_router.dart';
 
 class Registration extends StatelessWidget {
   @override
@@ -145,7 +147,7 @@ class Registration extends StatelessWidget {
         child: CustomButton(
           text: 'Next',
           backGroundcolor: AppColors.primary,
-          onPressed: () => {Navigator.pushNamed(context, '/id-confirmation')},
+          onPressed: () => {context.push(AppRoutes.idConfirmation)},
         ),
       ),
     );

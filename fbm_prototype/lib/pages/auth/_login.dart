@@ -1,10 +1,14 @@
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_input.dart';
 import 'package:FBM/components/_custom_text.dart';
+import 'package:FBM/context/auth_provider.dart';
+import 'package:FBM/routes/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:FBM/components/_custom_button.dart';
 import 'package:FBM/pages/root_page.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,17 +21,18 @@ class LoginPageState extends State<LoginPage> {
   bool isLoading = false;
 
   void _login(BuildContext context) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
     setState(() => isLoading = true);
 
     await Future.delayed(const Duration(seconds: 2));
 
     if (!mounted) return;
     setState(() => isLoading = false);
+    authProvider.login();
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => RootPage()),
-    );
+    // ✅ Navigate using GoRouter
+    context.go(AppRoutes.home);
   }
 
   @override
@@ -115,7 +120,7 @@ class LoginPageState extends State<LoginPage> {
                 CustomText(text: 'Don\'t have an account? '),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/registration');
+                    context.push(AppRoutes.registration);
                   },
                   child: CustomText(
                     text: 'Register here',

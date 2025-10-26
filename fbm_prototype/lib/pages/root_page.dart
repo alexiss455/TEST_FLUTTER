@@ -56,7 +56,7 @@ class _RootPageState extends State<RootPage> {
         page = ProfilePage();
         break;
       default:
-        page = const Center(child: Text("Not found"));
+        page = Center(child: Text("Not found"));
     }
 
     return PageRouteBuilder(
@@ -92,7 +92,7 @@ class _RootPageState extends State<RootPage> {
     return Container(
       width: 70,
       height: 70,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: LinearGradient(
           colors: [AppColors.primary, Colors.white],
@@ -108,19 +108,19 @@ class _RootPageState extends State<RootPage> {
         ],
       ),
       child: Container(
-        margin: const EdgeInsets.all(3),
-        decoration: const BoxDecoration(
+        margin: EdgeInsets.all(3),
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white,
         ),
         child: RawMaterialButton(
-          shape: const CircleBorder(),
+          shape: CircleBorder(),
           onPressed: () => _onItemTapped(2), // Scan tab
           child: SvgPicture.asset(
             'assets/img/icon/icon-scanner.svg',
             width: 30,
             height: 30,
-            colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
           ),
         ),
       ),

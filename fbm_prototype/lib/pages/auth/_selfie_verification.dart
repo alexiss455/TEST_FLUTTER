@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
+import 'package:FBM/routes/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:go_router/go_router.dart';
 
 class SelfieVerificationPage extends StatefulWidget {
   @override
@@ -73,7 +75,7 @@ class _SelfieVerificationPageState extends State<SelfieVerificationPage>
       _ocrProcessing = false;
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, '/success-verification');
+        context.go(AppRoutes.selfieVerificationSuccess);
       });
     });
     _checkController.forward();

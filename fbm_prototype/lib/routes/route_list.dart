@@ -9,7 +9,10 @@ class AppRoutes {
   static const selfieVerification = "/selfie-verification";
   static const selfieVerificationSuccess = "/success-verification";
 
+  // APP PROTECTED PAGES
   static const transactions = "/transactions";
+  static const transactionsDetails = "/transactions/:id";
+
   static const scan = "/scan";
   static const wallet = "/wallet";
   static const profile = "/profile";

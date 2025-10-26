@@ -1,10 +1,12 @@
 import 'package:FBM/components/_custom_button.dart';
 import 'package:FBM/components/_custom_input.dart';
 import 'package:FBM/pages/auth/_id_uploader.dart';
+import 'package:FBM/routes/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class IDConfirmation extends StatefulWidget {
   @override
@@ -132,7 +134,7 @@ class _IDConfirmationState extends State<IDConfirmation> {
                 CustomButton(
                     text: 'Take Selfie',
                     onPressed: () {
-                      Navigator.pushNamed(context, '/selfie-verification');
+                      context.push(AppRoutes.selfieVerification);
                     }),
               ],
             ),

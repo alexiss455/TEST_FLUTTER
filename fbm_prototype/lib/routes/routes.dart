@@ -1,90 +1,131 @@
-import 'package:FBM/pages/auth/_id_confirmation.dart';
-import 'package:FBM/pages/auth/_registration.dart';
-import 'package:FBM/pages/auth/_selfie_verification.dart';
-import 'package:FBM/pages/auth/_success_verify_selfie.dart';
 import 'package:flutter/material.dart';
-import 'package:FBM/context/auth_provider.dart';
-import 'package:FBM/pages/auth/_login.dart';
-import 'package:FBM/pages/profile/_profile.dart';
-import 'package:FBM/pages/root_page.dart';
-import 'package:FBM/pages/scan/_scan.dart';
-import 'package:FBM/pages/transaction/_transaction.dart';
-import 'package:FBM/pages/wallet/_wallet.dart';
-import 'package:FBM/routes/route_list.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
-    return PageRouteBuilder(
-      transitionDuration:
-          const Duration(milliseconds: 200), // 👈 speed (faster)
-      reverseTransitionDuration:
-          const Duration(milliseconds: 200), // 👈 back speeds
-      pageBuilder: (context, animation, secondaryAnimation) {
-        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+import 'package:FBM/context/auth_provider.dart';
+import 'package:FBM/pages/auth/_login.dart';
+import 'package:FBM/pages/auth/_registration.dart';
+import 'package:FBM/pages/auth/_id_confirmation.dart';
+import 'package:FBM/pages/auth/_selfie_verification.dart';
+import 'package:FBM/pages/auth/_success_verify_selfie.dart';
+import 'package:FBM/pages/root_page.dart';
+import 'package:FBM/pages/transaction/_transaction.dart';
+import 'package:FBM/pages/transaction/_details.dart';
+import 'package:FBM/pages/profile/_profile.dart';
+import 'package:FBM/pages/wallet/_wallet.dart';
+import 'package:FBM/pages/scan/_scan.dart';
+import 'package:FBM/routes/route_list.dart';
 
-        switch (settings.name) {
-          /// PUBLIC ROUTES (slide)
-          case AppRoutes.login:
-            return LoginPage();
-          case AppRoutes.registration:
-            return Registration();
-          case AppRoutes.idConfirmation:
-            return IDConfirmation();
-          case AppRoutes.selfieVerification:
-            return SelfieVerificationPage();
-          case AppRoutes.selfieVerificationSuccess:
-            return SelfieVerificationSuccess();
+class AppRouter {
+  static GoRouter router = GoRouter(
+    initialLocation: AppRoutes.login,
+    redirect: (context, state) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final isAuth = authProvider.isAuthenticated;
 
-          /// PRIVATE ROUTES (fade if authenticated, else slide back to login)
-          case AppRoutes.home:
-            return authProvider.isAuthenticated ? RootPage() : LoginPage();
+      print(isAuth);
 
-          case AppRoutes.transactions:
-            return authProvider.isAuthenticated
-                ? TransactionsPage()
-                : LoginPage();
+      // Redirect unauthenticated users trying to access private routes
+      final isAuthRoute = [
+        AppRoutes.login,
+        AppRoutes.registration,
+        AppRoutes.idConfirmation,
+        AppRoutes.selfieVerification,
+        AppRoutes.selfieVerificationSuccess,
+      ].contains(state.fullPath);
 
-          case AppRoutes.scan:
-            return authProvider.isAuthenticated ? ScanPage() : LoginPage();
+      if (!isAuth && !isAuthRoute) return AppRoutes.login;
+      if (isAuth && isAuthRoute) return AppRoutes.home;
+      return null; // no redirect
+    },
+    routes: [
+      /// 🧑‍💻 Public routes
+      GoRoute(
+        path: AppRoutes.login,
+        builder: (context, state) => LoginPage(),
+        pageBuilder: (context, state) => _slidePage(LoginPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.registration,
+        builder: (context, state) => Registration(),
+        pageBuilder: (context, state) => _slidePage(Registration()),
+      ),
+      GoRoute(
+        path: AppRoutes.idConfirmation,
+        builder: (context, state) => IDConfirmation(),
+        pageBuilder: (context, state) => _slidePage(IDConfirmation()),
+      ),
+      GoRoute(
+        path: AppRoutes.selfieVerification,
+        builder: (context, state) => SelfieVerificationPage(),
+        pageBuilder: (context, state) => _slidePage(SelfieVerificationPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.selfieVerificationSuccess,
+        builder: (context, state) => SelfieVerificationSuccess(),
+        pageBuilder: (context, state) =>
+            _slidePage(SelfieVerificationSuccess()),
+      ),
 
-          case AppRoutes.wallet:
-            return authProvider.isAuthenticated ? WalletPage() : LoginPage();
+      /// 🔒 Private routes (fade transition)
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (context, state) => RootPage(),
+        pageBuilder: (context, state) => _fadePage(RootPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.transactions,
+        builder: (context, state) => TransactionsPage(),
+        pageBuilder: (context, state) => _fadePage(TransactionsPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.transactionsDetails,
+        builder: (context, state) => TransactionDetailsPage(),
+        pageBuilder: (context, state) => _fadePage(TransactionDetailsPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.scan,
+        builder: (context, state) => ScanPage(),
+        pageBuilder: (context, state) => _fadePage(ScanPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.wallet,
+        builder: (context, state) => WalletPage(),
+        pageBuilder: (context, state) => _fadePage(WalletPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.profile,
+        builder: (context, state) => ProfilePage(),
+        pageBuilder: (context, state) => _fadePage(ProfilePage()),
+      ),
+    ],
+    errorBuilder: (context, state) => Scaffold(
+      body: Center(child: Text('Page not found')),
+    ),
+  );
 
-          case AppRoutes.profile:
-            return authProvider.isAuthenticated ? ProfilePage() : LoginPage();
-
-          /// FALLBACK
-          default:
-            return const Scaffold(
-              body: Center(child: Text("Page not found")),
-            );
-        }
-      },
+  /// Slide transition (for auth/public routes)
+  static CustomTransitionPage _slidePage(Widget child) {
+    return CustomTransitionPage(
+      key: ValueKey(child.hashCode),
+      child: child,
+      transitionDuration: Duration(milliseconds: 200),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final isAuthRoute = [
-          AppRoutes.login,
-          AppRoutes.registration,
-          AppRoutes.idConfirmation,
-          AppRoutes.selfieVerification,
-          AppRoutes.selfieVerificationSuccess,
-        ].contains(settings.name);
+        final offsetTween = Tween(begin: Offset(1, 0), end: Offset.zero);
+        return SlideTransition(
+            position: offsetTween.animate(animation), child: child);
+      },
+    );
+  }
 
-        if (isAuthRoute) {
-          // Slide animation for auth/public pages
-          return SlideTransition(
-            transformHitTests: true,
-            position:
-                Tween(begin: Offset(1, 0), end: Offset.zero).animate(animation),
-            child: child,
-          );
-        } else {
-          return FadeTransition(
-            opacity: AlwaysStoppedAnimation(1.0),
-            child: child,
-          );
-        }
+  /// Fade transition (for private routes)
+  static CustomTransitionPage _fadePage(Widget child) {
+    return CustomTransitionPage(
+      key: ValueKey(child.hashCode),
+      child: child,
+      transitionDuration: Duration(milliseconds: 200),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
       },
     );
   }

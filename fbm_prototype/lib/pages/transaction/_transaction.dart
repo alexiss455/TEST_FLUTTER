@@ -58,7 +58,7 @@ class TransactionsPageState extends State<TransactionsPage>
           children: [
             Container(
               padding: EdgeInsets.only(
-                  top: 5.0, left: 16.0, right: 16.0, bottom: 16.0),
+                  top: 5.0, left: 16.0, right: 16.0, bottom: 10.0),
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
@@ -223,64 +223,68 @@ class TransactionsPageState extends State<TransactionsPage>
   }
 
   Widget _TransactionItem(Map<String, dynamic> item) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        border:
-            Border(bottom: BorderSide(color: AppColors.greyLight3, width: 1)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            spacing: 10,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.greyLight2),
-                  borderRadius: BorderRadius.circular(AppColors.circleRadius),
-                ),
-                child: SvgPicture.asset(
-                  width: 28,
-                  height: 28,
-                  'assets/img/logo/pnb.svg',
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    text: item['category'] ?? '',
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.w600,
-                    textTransform: "capitalize",
-                  ),
-                  CustomText(
-                    text: item['merchant'] ?? '',
-                    color: AppColors.textSecondary,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ],
-              )
-            ],
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: AppColors.greyLight3, width: 1),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              CustomText(
-                text: 'Php ${NumberFormat.format(item['amount'] ?? 0)}',
-                fontWeight: FontWeight.w600,
-              ),
-              CustomText(
-                text: DateFormat.format(item['date'] ?? ''),
-                color: AppColors.textSecondary,
-                fontWeight: FontWeight.w400,
-              ),
-            ],
-          ),
-        ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              spacing: 10,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.greyLight2),
+                    borderRadius: BorderRadius.circular(AppColors.circleRadius),
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/img/logo/pnb.svg',
+                    width: 28,
+                    height: 28,
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: item['category'] ?? '',
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w600,
+                      textTransform: "capitalize",
+                    ),
+                    CustomText(
+                      text: item['merchant'] ?? '',
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                CustomText(
+                  text: 'Php ${NumberFormat.format(item['amount'] ?? 0)}',
+                  fontWeight: FontWeight.w600,
+                ),
+                CustomText(
+                  text: DateFormat.format(item['date'] ?? ''),
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.w400,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

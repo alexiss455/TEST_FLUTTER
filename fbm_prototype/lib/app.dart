@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:FBM/components/_custom_colors.dart';
-import 'package:FBM/routes/route_list.dart';
 import 'package:FBM/routes/routes.dart';
 
 class MyApp extends StatelessWidget {
@@ -8,8 +7,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // checkerboardOffscreenLayers: true,
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: "Food App",
       theme: ThemeData(
@@ -34,9 +32,7 @@ class MyApp extends StatelessWidget {
           foregroundColor: AppColors.textPrimary,
         ),
       ),
-      initialRoute: AppRoutes.login,
-      onGenerateRoute: (RouteSettings settings) =>
-          RouteGenerator.generateRoute(settings),
+      routerConfig: AppRouter.router,
     );
   }
 }
