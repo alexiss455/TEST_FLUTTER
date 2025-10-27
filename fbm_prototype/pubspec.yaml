@@ -88,6 +88,7 @@ flutter:
     - assets/img/icon/icon-withdraw.svg
     - assets/img/icon/icon-notice.svg
     - assets/img/icon/icon-eye.svg
+    - assets/img/icon/icon-map.svg
 
     # LOGO SVG
     - assets/img/logo/fbm_r_big.png 

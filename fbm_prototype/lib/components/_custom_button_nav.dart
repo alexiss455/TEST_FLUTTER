@@ -66,7 +66,7 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      height: 70,
+      height: 60,
       padding: EdgeInsets.zero,
       color: AppColors.white,
       surfaceTintColor: Colors.transparent,
@@ -76,7 +76,7 @@ class CustomBottomNav extends StatelessWidget {
       notchMargin: 6,
       clipBehavior: Clip.antiAliasWithSaveLayer, // enforces "overflow: hidden"
       child: SizedBox(
-        height: 70,
+        height: 60,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

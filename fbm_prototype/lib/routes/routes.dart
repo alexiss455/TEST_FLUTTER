@@ -24,8 +24,6 @@ class AppRouter {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final isAuth = authProvider.isAuthenticated;
 
-      print(isAuth);
-
       // Redirect unauthenticated users trying to access private routes
       final isAuthRoute = [
         AppRoutes.login,
@@ -70,7 +68,7 @@ class AppRouter {
 
       /// 🔒 Private routes (fade transition)
       /// The main shell route that hosts the bottom navigation
-      /// The main shell route that hosts the bottom navigation
+      ///
       ShellRoute(
         builder: (context, state, child) {
           return RootPage(child: child); // 👈 we'll modify RootPage below
@@ -79,16 +77,7 @@ class AppRouter {
           GoRoute(
             path: AppRoutes.home,
             builder: (context, state) => HomePage(),
-          ),
-          GoRoute(
-            path: AppRoutes.transactionsDetails,
-            builder: (context, state) {
-              final id =
-                  state.pathParameters['id']; // Access the path parameter
-              return TransactionDetailsPage(id: id);
-            },
-            pageBuilder: (context, state) =>
-                _slidePage(TransactionDetailsPage(id: '')),
+            pageBuilder: (context, state) => _noTransitionPage(HomePage()),
           ),
           GoRoute(
             path: AppRoutes.transactions,
@@ -113,6 +102,17 @@ class AppRouter {
           ),
         ],
       ),
+
+      GoRoute(
+        path: AppRoutes.transactionsDetails,
+        builder: (context, state) {
+          final id = state.pathParameters['id'];
+          return TransactionDetailsPage(id: id);
+        },
+        pageBuilder: (context, state) => _slidePage(
+            TransactionDetailsPage(id: state.pathParameters['id'] ?? '')),
+      ),
+      //
     ],
     errorBuilder: (context, state) => Scaffold(
       body: Center(child: Text('Page not found')),
