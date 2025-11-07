@@ -36,7 +36,8 @@ dependencies:
   image_picker: ^1.1.2
   camera: ^0.10.5+2
   permission_handler: ^11.3.1
-  
+  intl: ^0.19.0
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -85,7 +86,7 @@ flutter:
     - assets/img/icon/icon-scan-type1.svg
     - assets/img/icon/icon-wallet-type1.svg
     - assets/img/icon/icon-transfer.svg
-    - assets/img/icon/icon-withdraw.svg
+    - assets/img/icon/icon-widthdraw.svg
     - assets/img/icon/icon-notice.svg
     - assets/img/icon/icon-eye.svg
     - assets/img/icon/icon-map.svg

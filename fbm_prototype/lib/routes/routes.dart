@@ -11,7 +11,7 @@ import 'package:FBM/pages/auth/_selfie_verification.dart';
 import 'package:FBM/pages/auth/_success_verify_selfie.dart';
 import 'package:FBM/pages/root_page.dart';
 import 'package:FBM/pages/transaction/_transaction.dart';
-import 'package:FBM/pages/transaction/_details.dart';
+import 'package:FBM/pages/transaction/_transaction_details.dart';
 import 'package:FBM/pages/profile/_profile.dart';
 import 'package:FBM/pages/wallet/_wallet.dart';
 import 'package:FBM/pages/scan/_scan.dart';

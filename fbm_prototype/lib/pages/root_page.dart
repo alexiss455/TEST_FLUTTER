@@ -55,8 +55,8 @@ class RootPage extends StatelessWidget {
 
   Widget _buildFab(BuildContext context) {
     return Container(
-      width: 70,
-      height: 70,
+      width: 60,
+      height: 60,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: LinearGradient(
@@ -83,8 +83,8 @@ class RootPage extends StatelessWidget {
           onPressed: () => context.go('/scan'),
           child: SvgPicture.asset(
             'assets/img/icon/icon-scanner.svg',
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
           ),
         ),

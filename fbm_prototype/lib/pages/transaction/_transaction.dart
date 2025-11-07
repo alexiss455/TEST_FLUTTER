@@ -1,7 +1,9 @@
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
+import 'package:FBM/components/_custom_top_nav.dart';
 import 'package:FBM/helpers/date_format.dart';
 import 'package:FBM/helpers/number_format.dart';
+import 'package:FBM/pages/transaction/_transaction_listview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -16,24 +18,18 @@ class TransactionsPage extends StatefulWidget {
 
 class TransactionsPageState extends State<TransactionsPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  final _tabs = ['All', 'Withdraw', 'Top Up'];
-
-  void _handleTabSelection(int index) {
-    setState(() {
-      _tabController.index = index;
-    });
-  }
+  late TabController tabController;
+  final tabs = ['All', 'Withdraw', 'Top Up'];
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
+    tabController = TabController(length: tabs.length, vsync: this);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    tabController.dispose();
     super.dispose();
   }
 
@@ -49,163 +45,27 @@ class TransactionsPageState extends State<TransactionsPage>
           fontWeight: FontWeight.w600,
           fontSize: 18,
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushNamed(context, '/'),
-        ),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.only(
-                  top: 5.0, left: 16.0, right: 16.0, bottom: 10.0),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-                decoration: BoxDecoration(
-                  color: AppColors.textSecondary.withOpacity(0.05),
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(AppColors.mainRadius)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  spacing: 6.0,
-                  children: _tabs.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final tab = entry.value;
-                    final isActive = _tabController.index == index;
-                    return Expanded(
-                        flex: 1,
-                        child: AnimatedContainer(
-                            duration: Duration(milliseconds: 100),
-                            child: InkWell(
-                              borderRadius:
-                                  BorderRadius.circular(AppColors.subRadius),
-                              onTap: () => _handleTabSelection(index),
-                              child: GestureDetector(
-                                onTap: () => _handleTabSelection(index),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
-                                  decoration: BoxDecoration(
-                                    color: isActive
-                                        ? AppColors.primary.withOpacity(0.2)
-                                        : AppColors.white,
-                                    border: Border.all(
-                                        color:
-                                            Color.fromARGB(255, 243, 243, 243)),
-                                    borderRadius: BorderRadius.circular(
-                                        AppColors.subRadius),
-                                  ),
-                                  child: Center(
-                                    child: CustomText(
-                                      text: tab,
-                                      color: isActive
-                                          ? AppColors.primary
-                                          : AppColors.textPrimary,
-                                      fontWeight: isActive
-                                          ? FontWeight.w600
-                                          : FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )));
-                  }).toList(),
-                ),
-              ),
-            ),
-            //
+            CustomNavTab(tabController: tabController, tabs: tabs),
             Expanded(
               child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
+                controller: tabController,
+                physics: NeverScrollableScrollPhysics(),
                 children: [
-                  /// 🧾 ALL TRANSACTIONS (Grouped by Month)
-                  ListView(
-                    children: jsonData.groupedByMonth.map((group) {
-                      final month = group['category_month'];
-                      final transactions = group['items'] as List<dynamic>;
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8.0),
-                            child: CustomText(
-                              text: DateFormat.formatMonth(month),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          ...transactions
-                              .map((item) => _TransactionItem(item))
-                              .toList(),
-                        ],
-                      );
-                    }).toList(),
-                  ),
-
-                  /// 💸 WITHDRAW (Grouped by Month)
-                  ListView(
-                    children: jsonData.groupedByMonth.map((group) {
-                      final month = group['category_month'];
-                      final transactions = (group['items'] as List<dynamic>)
-                          .where((item) => item['category'] == 'WITHDRAW')
-                          .toList();
-
-                      if (transactions.isEmpty) return const SizedBox.shrink();
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8.0),
-                            child: CustomText(
-                              text: DateFormat.formatMonth(month),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          ...transactions
-                              .map((item) => _TransactionItem(item))
-                              .toList(),
-                        ],
-                      );
-                    }).toList(),
-                  ),
-
-                  /// 💰 TOP UP (Grouped by Month)
-                  ListView(
-                    children: jsonData.groupedByMonth.map((group) {
-                      final month = group['category_month'];
-                      final transactions = (group['items'] as List<dynamic>)
-                          .where((item) => item['category'] == 'TOP UP')
-                          .toList();
-
-                      if (transactions.isEmpty) return const SizedBox.shrink();
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8.0),
-                            child: CustomText(
-                              text: DateFormat.formatMonth(month),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          ...transactions
-                              .map((item) => _TransactionItem(item))
-                              .toList(),
-                        ],
-                      );
-                    }).toList(),
-                  ),
+                  TrasnactionListView(
+                      groupedData: jsonData.groupedByMonth,
+                      itemBuilder: (item) => ListItem(item)),
+                  TrasnactionListView(
+                      groupedData: jsonData.groupedByMonth,
+                      category: 'WITHDRAW',
+                      itemBuilder: (item) => ListItem(item)),
+                  TrasnactionListView(
+                      groupedData: jsonData.groupedByMonth,
+                      category: 'TOP UP',
+                      itemBuilder: (item) => ListItem(item)),
                 ],
               ),
             )
@@ -215,22 +75,15 @@ class TransactionsPageState extends State<TransactionsPage>
     );
   }
 
-  Widget _buildTransactionList(List<Map<String, dynamic>> items) {
-    return SingleChildScrollView(
-      child: Column(
-        children: items.map((item) => _TransactionItem(item)).toList(),
-      ),
-    );
-  }
-
-  Widget _TransactionItem(Map<String, dynamic> item) {
+  Widget ListItem(Map<String, dynamic> item) {
     return InkWell(
       onTap: () {
         GoRouter.of(context).push('/transactions/${item['id']}');
       },
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppColors.mainPadding, vertical: 10.0),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(color: AppColors.greyLight3, width: 1),
@@ -280,7 +133,7 @@ class TransactionsPageState extends State<TransactionsPage>
                   fontWeight: FontWeight.w600,
                 ),
                 CustomText(
-                  text: DateFormat.format(item['date'] ?? ''),
+                  text: DateFormatHelper.format(item['date'] ?? ''),
                   color: AppColors.textSecondary,
                   fontWeight: FontWeight.w400,
                 ),

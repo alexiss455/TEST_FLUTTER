@@ -20,14 +20,14 @@ class CustomBottomNav extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned.fill(
-            // left: -12,
-            // right: -12,
+            left: -12,
+            right: -12,
             child: Material(
               color: Colors.transparent,
               child: InkResponse(
                 containedInkWell: false,
-                radius: 56,
-                splashColor: AppColors.primary.withOpacity(0.025),
+                radius: 45,
+                splashColor: AppColors.primary.withOpacity(0.05),
                 highlightColor: Colors.transparent,
                 onTap: () => onItemTapped(index),
                 child: Align(
@@ -42,7 +42,6 @@ class CustomBottomNav extends StatelessWidget {
                             : AppColors.textPrimary,
                         height: 24,
                       ),
-                      const SizedBox(height: 2),
                       CustomText(
                         text: label,
                         style: TextStyle(
@@ -66,7 +65,7 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      height: 60,
+      height: 55,
       padding: EdgeInsets.zero,
       color: AppColors.white,
       surfaceTintColor: Colors.transparent,

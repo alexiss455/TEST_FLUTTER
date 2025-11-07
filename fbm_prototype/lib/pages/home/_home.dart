@@ -42,11 +42,10 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final screen = MediaQuery.of(context).size;
-
     return Scaffold(
         extendBodyBehindAppBar: true, // gradient go behind status bar
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
+          preferredSize: Size.fromHeight(kToolbarHeight),
           child: ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(
@@ -62,7 +61,7 @@ class HomePageState extends State<HomePage> {
                 elevation: 0,
                 leadingWidth: 120,
                 leading: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
+                  padding: EdgeInsets.only(left: 16.0),
                   child: Image.asset(
                     'assets/img/logo/fbm_r_big.png',
                     width: 100,
@@ -71,11 +70,10 @@ class HomePageState extends State<HomePage> {
                 ),
                 actions: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
+                    padding: EdgeInsets.only(right: AppColors.mainPadding),
                     child: Row(
                       children: [
                         IconButton(
-                          padding: const EdgeInsets.all(5),
                           icon: SvgPicture.asset(
                               'assets/img/icon/icon-notice.svg'),
                           onPressed: () {},
@@ -115,24 +113,22 @@ class HomePageState extends State<HomePage> {
                         Stack(
                           children: [
                             Container(
-                                // color: AppColors.accent,
                                 child: Column(
                               children: [
                                 Container(
                                   padding: EdgeInsets.only(
-                                      top: 70, left: 16, right: 16),
+                                    top: kToolbarHeight + 20,
+                                    left: AppColors.mainPadding,
+                                    right: AppColors.mainPadding,
+                                    bottom: AppColors.mainPadding,
+                                  ),
                                   decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color.fromARGB(255, 76, 4, 4),
-                                        AppColors.primary,
-                                      ],
-                                      begin: Alignment.topRight,
-                                      end: Alignment.bottomLeft,
-                                    ),
+                                    gradient: AppColors.gradient1,
                                     borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(40),
-                                      bottomRight: Radius.circular(40),
+                                      bottomLeft: Radius.circular(
+                                          AppColors.mainRadius2),
+                                      bottomRight: Radius.circular(
+                                          AppColors.mainRadius2),
                                     ),
                                   ),
                                   child: Column(
@@ -236,7 +232,7 @@ class HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 90),
+                                SizedBox(height: 80),
                               ],
                             )),
                             Positioned(
@@ -244,7 +240,8 @@ class HomePageState extends State<HomePage> {
                               left: 0,
                               right: 0,
                               child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppColors.mainPadding),
                                 width: double.infinity,
                                 child: Container(
                                     padding: EdgeInsets.symmetric(
@@ -252,7 +249,7 @@ class HomePageState extends State<HomePage> {
                                     decoration: BoxDecoration(
                                         color: AppColors.white,
                                         borderRadius: BorderRadius.circular(
-                                            AppColors.mainRadius),
+                                            AppColors.mainRadius1),
                                         boxShadow: [AppColors.shadow1]),
                                     child: ActionGrid(items: [
                                       ActionItem(
@@ -270,7 +267,7 @@ class HomePageState extends State<HomePage> {
                                       ),
                                       ActionItem(
                                         icon:
-                                            'assets/img/icon/icon-withdraw.svg',
+                                            'assets/img/icon/icon-widthdraw.svg',
                                         label: 'Withdraw',
                                         onTap: () {},
                                         color: AppColors.primary,
@@ -335,7 +332,7 @@ class HomePageState extends State<HomePage> {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
         boxShadow: [AppColors.shadow1],
-        borderRadius: BorderRadius.circular(AppColors.mainRadius),
+        borderRadius: BorderRadius.circular(AppColors.mainRadius1),
       ),
       child: Column(
         children: [

@@ -10,7 +10,7 @@ class TransactionDetailsPage extends StatelessWidget {
   const TransactionDetailsPage({
     Key? key,
     required this.id,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +48,9 @@ class TransactionDetailsPage extends StatelessWidget {
               padding: EdgeInsets.all(16),
               child: DottedBorder(
                 borderType: BorderType.RRect,
-                radius: Radius.circular(AppColors.mainRadius),
+                radius: Radius.circular(AppColors.mainRadius1),
                 dashPattern: [6, 3],
-                color: AppColors.grey,
+                color: AppColors.greyLight,
                 strokeWidth: 1,
                 child: Container(
                     width: double.infinity,
@@ -58,7 +58,7 @@ class TransactionDetailsPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: AppColors.blueLight1,
                       borderRadius: BorderRadius.all(
-                          Radius.circular(AppColors.mainRadius)),
+                          Radius.circular(AppColors.mainRadius1)),
                     ),
                     child: Column(
                       children: [

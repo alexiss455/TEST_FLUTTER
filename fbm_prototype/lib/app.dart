@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Food App",
       theme: ThemeData(
+        splashFactory: InkRipple.splashFactory,
         fontFamily: 'Inter',
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.white,

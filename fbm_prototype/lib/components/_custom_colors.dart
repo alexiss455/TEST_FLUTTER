@@ -37,6 +37,16 @@ class AppColors {
   // RGB
   static const Color warningLight = Color(0xFFFF883F);
 
+  // Gradients
+  static const LinearGradient gradient1 = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Color.fromARGB(255, 145, 18, 18),
+      AppColors.primary,
+    ],
+  );
+
   // Shadows (non-const, because withOpacity is runtime)
   static final BoxShadow shadow1 = BoxShadow(
     color: black.withOpacity(0.05),
@@ -45,8 +55,12 @@ class AppColors {
     offset: const Offset(0, 1),
   );
 
-  // Radii
-  static const double mainRadius = 20.0;
+  // Radius
+  static const double mainRadius1 = 20.0;
+  static const double mainRadius2 = 40.0; // used for ovoerlapping
   static const double subRadius = 12.0;
   static const double circleRadius = 100.0;
+
+  // Paddimng
+  static const double mainPadding = 16.0;
 }
