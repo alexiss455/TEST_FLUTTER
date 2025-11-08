@@ -39,7 +39,7 @@ class CustomBottomNav extends StatelessWidget {
                         isSelected ? "$asset-active.svg" : "$asset.svg",
                         color: isSelected
                             ? AppColors.primary
-                            : AppColors.textPrimary,
+                            : AppColors.textPrimary.withOpacity(0.5),
                         height: 24,
                       ),
                       CustomText(

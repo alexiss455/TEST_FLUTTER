@@ -1,6 +1,6 @@
 import 'package:FBM/components/_custom_colors.dart';
 import 'package:FBM/components/_custom_text.dart';
-import 'package:FBM/components/_custom_top_nav.dart';
+import 'package:FBM/components/_custom_top_nav_tab.dart';
 import 'package:FBM/helpers/date_format.dart';
 import 'package:FBM/helpers/number_format.dart';
 import 'package:FBM/pages/transaction/_transaction_listview.dart';

@@ -113,90 +113,58 @@ class HomePageState extends State<HomePage> {
                         Stack(
                           children: [
                             Container(
+                                width: double.infinity,
+                                // color: AppColors.success,
                                 child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(
-                                    top: kToolbarHeight + 20,
-                                    left: AppColors.mainPadding,
-                                    right: AppColors.mainPadding,
-                                    bottom: AppColors.mainPadding,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.gradient1,
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(
-                                          AppColors.mainRadius2),
-                                      bottomRight: Radius.circular(
-                                          AppColors.mainRadius2),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        spacing: 5,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: kToolbarHeight + 20,
+                                        left: AppColors.mainPadding,
+                                        right: AppColors.mainPadding,
+                                        bottom: AppColors.mainPadding,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        gradient: AppColors.gradient1,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(
+                                              AppColors.mainRadius2),
+                                          bottomRight: Radius.circular(
+                                              AppColors.mainRadius2),
+                                        ),
+                                      ),
+                                      child: Column(
                                         children: [
-                                          CustomText(
-                                            text: "Welcome Juan!",
-                                            color: AppColors.white,
-                                            textAlign: TextAlign.center,
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CustomText(
-                                                text: "₱ 2,500",
-                                                color: AppColors.white,
-                                                fontSize: 32,
-                                                fontWeight: FontWeight.w800,
-                                              ),
-                                              CustomText(
-                                                text: ".00",
-                                                color: AppColors.white
-                                                    .withOpacity(0.3),
-                                                fontSize: 32,
-                                                fontWeight: FontWeight.w800,
-                                              ),
-                                              IconButton(
-                                                  onPressed: () => {},
-                                                  icon: SvgPicture.asset(
-                                                      'assets/img/icon/icon-eye.svg')),
-                                            ],
-                                          ),
-                                          CustomText(
-                                              text: "My Wallet Balance",
-                                              color: AppColors.white,
-                                              fontWeight: FontWeight.w500,
-                                              height: 1.5),
-                                          Row(
+                                          Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
+                                            spacing: 5,
                                             children: [
+                                              CustomText(
+                                                text: "Welcome Juan!",
+                                                color: AppColors.white,
+                                                textAlign: TextAlign.center,
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   CustomText(
-                                                    text: "₱ 10",
+                                                    text: "₱ 2,500",
                                                     color: AppColors.white,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 32,
+                                                    fontWeight: FontWeight.w800,
                                                   ),
                                                   CustomText(
                                                     text: ".00",
                                                     color: AppColors.white
                                                         .withOpacity(0.3),
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 32,
+                                                    fontWeight: FontWeight.w800,
                                                   ),
                                                   IconButton(
                                                       onPressed: () => {},
@@ -204,37 +172,75 @@ class HomePageState extends State<HomePage> {
                                                           'assets/img/icon/icon-eye.svg')),
                                                 ],
                                               ),
+                                              CustomText(
+                                                  text: "My Wallet Balance",
+                                                  color: AppColors.white,
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 1.5),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      CustomText(
+                                                        text: "₱ 10",
+                                                        color: AppColors.white,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      CustomText(
+                                                        text: ".00",
+                                                        color: AppColors.white
+                                                            .withOpacity(0.3),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      IconButton(
+                                                          onPressed: () => {},
+                                                          icon: SvgPicture.asset(
+                                                              'assets/img/icon/icon-eye.svg')),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              CustomText(
+                                                textAlign: TextAlign.center,
+                                                text: "Loyalty Funds",
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                                height: 0.5,
+                                              ),
+                                              SizedBox(height: 5),
+                                              CustomButton(
+                                                fontSize: 16,
+                                                text: 'Currently Playing',
+                                                onPressed: () => {},
+                                                border: true,
+                                                borderColor:
+                                                    AppColors.warningLight,
+                                                height: 55,
+                                                backGroundcolor: AppColors
+                                                    .warningLight
+                                                    .withOpacity(0.2),
+                                              ),
+                                              SizedBox(height: 130),
                                             ],
                                           ),
-                                          CustomText(
-                                            textAlign: TextAlign.center,
-                                            text: "Loyalty Funds",
-                                            color: AppColors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12,
-                                            height: 0.5,
-                                          ),
-                                          SizedBox(height: 10),
-                                          CustomButton(
-                                            fontSize: 16,
-                                            text: 'Currently Playing',
-                                            onPressed: () => {},
-                                            border: true,
-                                            borderColor: AppColors.warningLight,
-                                            height: 55,
-                                            backGroundcolor: AppColors
-                                                .warningLight
-                                                .withOpacity(0.2),
-                                          ),
-                                          SizedBox(height: 130),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 80),
-                              ],
-                            )),
+                                    ),
+                                    SizedBox(height: 70),
+                                  ],
+                                )),
                             Positioned(
                               bottom: 0,
                               left: 0,
@@ -244,14 +250,15 @@ class HomePageState extends State<HomePage> {
                                     horizontal: AppColors.mainPadding),
                                 width: double.infinity,
                                 child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 30, horizontal: 10),
-                                    decoration: BoxDecoration(
-                                        color: AppColors.white,
-                                        borderRadius: BorderRadius.circular(
-                                            AppColors.mainRadius1),
-                                        boxShadow: [AppColors.shadow1]),
-                                    child: ActionGrid(items: [
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 30, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(
+                                          AppColors.mainRadius1),
+                                      boxShadow: [AppColors.shadow1]),
+                                  child: ActionGrid(
+                                    items: [
                                       ActionItem(
                                         icon:
                                             'assets/img/icon/icon-transfer.svg',
@@ -299,7 +306,9 @@ class HomePageState extends State<HomePage> {
                                         onTap: () {},
                                         color: AppColors.primary,
                                       ),
-                                    ])),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ],
