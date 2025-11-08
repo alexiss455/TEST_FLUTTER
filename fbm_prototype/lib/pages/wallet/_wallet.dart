@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:FBM/_data/data.dart';
 import 'package:FBM/components/_custom_app_bar.dart';
 import 'package:FBM/components/_custom_colors.dart';
@@ -51,41 +50,48 @@ class WalletState extends State<WalletPage>
     final double appBarHeight = kToolbarHeight;
     final double totalTopPadding = topPadding + appBarHeight;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Column(
-        children: [
-          _buildWalletHeader(),
-          CustomNavTab(
-            tabController: tabController,
-            tabs: tabs,
-          ),
-
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                WalletListView(
-                  groupedData: jsonData.groupedByMonth2,
-                  itemBuilder: (i) => ListItem(i),
-                ),
-                TrasnactionListView(
-                  groupedData: jsonData.groupedByMonth,
-                  category: 'WITHDRAW',
-                  itemBuilder: (i) => ListItem2(i),
-                ),
-                TrasnactionListView(
-                  groupedData: jsonData.groupedByMonth,
-                  category: 'TOP UP',
-                  itemBuilder: (i) => ListItem2(i),
-                ),
-              ],
+    return DefaultTabController(
+      length: tabs.length + 1,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: CustomAppBar(
+          title: 'Wallet',
+          titleColor: AppColors.white,
+          backgroundColor: AppColors.transparent,
+        ),
+        body: Column(
+          children: [
+            _buildWalletHeader(),
+            CustomNavTab(
+              tabController: tabController,
+              tabs: tabs,
             ),
-          ),
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  WalletListView(
+                    groupedData: jsonData.groupedByMonth2,
+                    itemBuilder: (i) => ListItem(i),
+                  ),
+                  TrasnactionListView(
+                    groupedData: jsonData.groupedByMonth,
+                    category: 'WITHDRAW',
+                    itemBuilder: (i) => ListItem2(i),
+                  ),
+                  TrasnactionListView(
+                    groupedData: jsonData.groupedByMonth,
+                    category: 'TOP UP',
+                    itemBuilder: (i) => ListItem2(i),
+                  ),
+                ],
+              ),
+            ),
 
-          //
-        ],
+            //
+          ],
+        ),
       ),
     );
   }

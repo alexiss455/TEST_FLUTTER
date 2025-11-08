@@ -17,6 +17,7 @@ class WalletListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.all(0),
       children: groupedData.map((group) {
         final month = group['category_month'];
         final transactions = (group['items'] as List<dynamic>)
