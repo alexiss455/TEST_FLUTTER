@@ -56,8 +56,10 @@ class AppColors {
   );
 
   // Radius
+  static const double mainRadius = 20.0;
   static const double mainRadius1 = 25.0;
   static const double mainRadius2 = 40.0; // used for ovoerlapping
+
   static const double subRadius = 12.0;
   static const double circleRadius = 100.0;
 

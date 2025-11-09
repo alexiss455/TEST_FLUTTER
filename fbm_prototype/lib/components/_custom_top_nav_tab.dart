@@ -40,8 +40,7 @@ class StateCustomNavTab extends State<CustomNavTab>
         padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
         decoration: BoxDecoration(
           color: AppColors.textSecondary.withOpacity(0.1),
-          borderRadius:
-              BorderRadius.all(Radius.circular(AppColors.mainRadius1)),
+          borderRadius: BorderRadius.all(Radius.circular(AppColors.mainRadius)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

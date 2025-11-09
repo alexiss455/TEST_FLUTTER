@@ -34,7 +34,6 @@ class ProfilePage extends StatelessWidget {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(top: kToolbarHeight + 24.0),
                           width: double.infinity,
                           decoration: BoxDecoration(
                               gradient: AppColors.gradient1,
@@ -45,33 +44,37 @@ class ProfilePage extends StatelessWidget {
                                       Radius.circular(AppColors.mainRadius2))),
                           child: Column(
                             children: [
-                              SizedBox(height: 30.0),
+                              const SizedBox(height: 90.0),
                               Container(
                                 width: 90,
                                 height: 90,
                                 padding: EdgeInsets.all(20.0),
                                 decoration: BoxDecoration(
-                                    color: AppColors.white.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(50)),
+                                  color: AppColors.white.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
                                 child: SvgPicture.asset(
-                                    'assets/img/icon/icon-profile.svg',
-                                    color: AppColors.white),
-                              ),
-                              SizedBox(height: 15.0),
-                              CustomText(
-                                  text: 'Juan Dela Cruz',
-                                  fontSize: 20,
+                                  'assets/img/icon/icon-profile.svg',
                                   color: AppColors.white,
-                                  fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              const SizedBox(height: 15.0),
                               CustomText(
-                                  text: '+63 912 456 7896',
-                                  color: AppColors.greyLight3.withOpacity(0.65),
-                                  fontSize: 16),
-                              SizedBox(height: 50.0),
+                                text: 'Juan Dela Cruz',
+                                fontSize: 20,
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              CustomText(
+                                text: '+63 912 456 7896',
+                                color: AppColors.greyLight3.withOpacity(0.65),
+                                fontSize: 16,
+                              ),
+                              const SizedBox(height: 50.0),
                             ],
                           ),
                         ),
-                        SizedBox(height: 200.0),
+                        const SizedBox(height: 200.0),
                       ],
                     ),
                   ),
@@ -86,25 +89,31 @@ class ProfilePage extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColors.white,
+                          boxShadow: [AppColors.shadow1],
                           borderRadius: BorderRadius.all(
                               Radius.circular(AppColors.mainRadius1)),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomText(
-                              text: 'Test',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              textAlign: TextAlign.left,
-                              height: 3.0,
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 30.0, vertical: 20),
+                              child: CustomText(
+                                text: 'Pofile Settings',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                )
+                              ],
                             ),
                             CustomText(text: 'Test'),
-                            CustomText(text: 'Test'),
-                            CustomText(text: 'Test'),
-                            CustomText(text: 'Test'),
-                            CustomText(text: 'Test'),
-                            CustomText(text: 'Test'),
-                            CustomText(text: 'Test')
                           ],
                         ),
                       ),
