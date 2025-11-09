@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: AppColors.accent,
+                    // color: AppColors.accent,
                     child: Column(
                       children: [
                         Container(
@@ -74,7 +74,7 @@ class ProfilePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 200.0),
+                        const SizedBox(height: 300.0),
                       ],
                     ),
                   ),
@@ -106,14 +106,17 @@ class ProfilePage extends StatelessWidget {
                                 textAlign: TextAlign.left,
                               ),
                             ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                )
-                              ],
-                            ),
-                            CustomText(text: 'Test'),
+                            _buildListSettingsProfile(
+                                'account', 'Account', '/'),
+                            _buildListSettingsProfile(
+                                'terms', 'Terms and Condition', '/'),
+                            _buildListSettingsProfile(
+                                'privacy', 'Privacy Policy', '/'),
+                            _buildListSettingsProfile(
+                                'help', 'Help Center', '/'),
+                            _buildListSettingsProfile(
+                                'privacy', 'Report Bug', '/',
+                                border: false),
                           ],
                         ),
                       ),
@@ -123,6 +126,42 @@ class ProfilePage extends StatelessWidget {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildListSettingsProfile(icon, title, to, {border = true}) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.0,
+      ),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.greyLight,
+              width: border ? 1 : 0,
+            ),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(spacing: 5, children: [
+              SvgPicture.asset(
+                'assets/img/icon/icon-$icon.svg',
+                width: 26,
+                height: 26,
+              ),
+              CustomText(
+                text: title,
+                fontSize: 16,
+              ),
+            ]),
+            SvgPicture.asset('assets/img/icon/icon-arrow.svg'),
+          ],
         ),
       ),
     );

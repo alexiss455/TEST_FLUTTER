@@ -90,6 +90,11 @@ flutter:
     - assets/img/icon/icon-notice.svg
     - assets/img/icon/icon-eye.svg
     - assets/img/icon/icon-map.svg
+    - assets/img/icon/icon-account.svg
+    - assets/img/icon/icon-terms.svg
+    - assets/img/icon/icon-privacy.svg
+    - assets/img/icon/icon-help.svg
+    - assets/img/icon/icon-report-bug.svg
 
     # LOGO SVG
     - assets/img/logo/fbm_r_big.png 
