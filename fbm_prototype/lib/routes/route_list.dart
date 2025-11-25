@@ -16,4 +16,11 @@ class AppRoutes {
   static const scan = "/scan";
   static const wallet = "/wallet";
   static const profile = "/profile";
+
+  static const account = "/account";
+  static const settings = "/settings";
+  static const help = "/help";
+  static const termsAndConditions = "/terms-conditions";
+  static const privacy = "/privacy-policy";
+  static const support = "/support";
 }

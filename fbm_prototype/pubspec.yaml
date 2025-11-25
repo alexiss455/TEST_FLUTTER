@@ -95,6 +95,7 @@ flutter:
     - assets/img/icon/icon-privacy.svg
     - assets/img/icon/icon-help.svg
     - assets/img/icon/icon-report-bug.svg
+    - assets/img/icon/icon-logout.svg
 
     # LOGO SVG
     - assets/img/logo/fbm_r_big.png 

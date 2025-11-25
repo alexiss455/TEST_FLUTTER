@@ -14,6 +14,7 @@ class CustomButton extends StatelessWidget {
   final Color borderColor;
   final bool isLoading;
   final bool border;
+  final Widget? icon;
 
   const CustomButton({
     Key? key,
@@ -29,6 +30,7 @@ class CustomButton extends StatelessWidget {
     this.isLoading = false,
     this.border = false,
     this.borderColor = AppColors.primary,
+    this.icon, // Add to constructor
   }) : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class CustomButton extends StatelessWidget {
       width: width,
       height: height,
       child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed, // disable when loading
+        onPressed: isLoading ? null : onPressed,
         style: ButtonStyle(
           elevation: WidgetStateProperty.all(0),
           shadowColor: WidgetStateProperty.all(Colors.transparent),
@@ -65,13 +67,23 @@ class CustomButton extends StatelessWidget {
                   valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
                 ),
               )
-            : Text(
-                text,
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w600,
-                  color: textColor,
-                ),
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (icon != null) ...[
+                    icon!,
+                    const SizedBox(width: 8),
+                  ],
+                  Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.w600,
+                      color: textColor,
+                    ),
+                  ),
+                ],
               ),
       ),
     );
